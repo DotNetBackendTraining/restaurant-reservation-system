@@ -1,5 +1,7 @@
 # Restaurant Reservation System
 
+[![.NET](https://github.com/DotNetBackendTraining/restaurant-reservation-system/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/DotNetBackendTraining/restaurant-reservation-system/actions/workflows/build-and-test.yml)
+
 ## Before you start
 
 - Use .NET Core 5.0+
