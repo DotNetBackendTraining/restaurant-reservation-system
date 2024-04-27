@@ -13,4 +13,6 @@ public class Restaurant
     public required string OpeningHours { get; set; }
 
     public ICollection<MenuItem> MenuItems { get; set; } = [];
+
+    public ICollection<Employee> Employees { get; set; } = [];
 }
