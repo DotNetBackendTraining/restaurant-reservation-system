@@ -10,6 +10,7 @@ public class RestaurantReservationDbContext : DbContext
     public DbSet<Restaurant> Restaurants { get; set; } = null!;
     public DbSet<MenuItem> MenuItems { get; set; } = null!;
     public DbSet<Employee> Employees { get; set; } = null!;
+    public DbSet<Table> Tables { get; set; } = null!;
 
     public RestaurantReservationDbContext(DbContextOptions options) : base(options)
     {

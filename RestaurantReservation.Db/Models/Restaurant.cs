@@ -15,4 +15,6 @@ public class Restaurant
     public ICollection<MenuItem> MenuItems { get; set; } = [];
 
     public ICollection<Employee> Employees { get; set; } = [];
+
+    public ICollection<Table> Tables { get; set; } = [];
 }
