@@ -9,7 +9,7 @@ namespace RestaurantReservation.Test;
 
 public class RestaurantReservationDbContextIntegrationTests
 {
-    [Theory, CustomAutoData]
+    [Theory, CustomAutoData(1)]
     public void CustomerDbSet_AddCustomer_AddsAndTracksCustomerCorrectly(Customer customer)
     {
         var options = new DbContextOptionsBuilder<RestaurantReservationDbContext>()
@@ -25,11 +25,11 @@ public class RestaurantReservationDbContextIntegrationTests
         customer.CustomerId.Should().NotBe(0);
     }
 
-    [Theory, CustomAutoData]
+    [Theory, CustomAutoData(1)]
     public void RestaurantDbSet_AddRestaurant_AddsAndTracksRestaurantCorrectly(Restaurant restaurant)
     {
         var options = new DbContextOptionsBuilder<RestaurantReservationDbContext>()
-            .UseInMemoryDatabase(nameof(CustomerDbSet_AddCustomer_AddsAndTracksCustomerCorrectly))
+            .UseInMemoryDatabase(nameof(RestaurantDbSet_AddRestaurant_AddsAndTracksRestaurantCorrectly))
             .Options;
         using var context = new RestaurantReservationDbContext(options);
         restaurant.RestaurantId = 0;
