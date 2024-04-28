@@ -12,4 +12,6 @@ public class MenuItem
     public required string Description { get; set; }
 
     public required double Price { get; set; }
+
+    public ICollection<OrderItem> OrderItems { get; set; } = [];
 }

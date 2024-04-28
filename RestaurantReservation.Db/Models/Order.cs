@@ -13,4 +13,6 @@ public class Order
     public required DateTime OrderDate { get; set; }
 
     public required double TotalAmount { get; set; }
+
+    public ICollection<OrderItem> OrderItems { get; set; }
 }
