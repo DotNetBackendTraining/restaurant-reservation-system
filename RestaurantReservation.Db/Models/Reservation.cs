@@ -7,6 +7,9 @@ public class Reservation
     public required int CustomerId { get; set; }
     public Customer Customer { get; set; }
 
+    public required int TableId { get; set; }
+    public Table Table { get; set; }
+
     public required DateTime ReservationDate { get; set; }
 
     public required int PartySize { get; set; }
