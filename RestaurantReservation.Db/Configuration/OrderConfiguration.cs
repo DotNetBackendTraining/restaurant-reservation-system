@@ -14,5 +14,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .WithMany(e => e.Orders)
             .HasForeignKey(o => o.EmployeeId)
             .OnDelete(DeleteBehavior.SetNull);
+
+        builder.ToTable(o => o.HasCheckConstraint("CK_Orders_TotalAmount", "TotalAmount >= 0"));
     }
 }

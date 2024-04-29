@@ -12,5 +12,7 @@ public class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
             .WithMany(t => t.Reservations)
             .HasForeignKey(r => r.TableId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.ToTable(r => r.HasCheckConstraint("CK_Reservations_PartySize", "PartySize > 0"));
     }
 }

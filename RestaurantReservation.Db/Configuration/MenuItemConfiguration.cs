@@ -13,5 +13,7 @@ public class MenuItemConfiguration : IEntityTypeConfiguration<MenuItem>
         builder.Property(i => i.Name).HasMaxLength(100);
         builder.Property(i => i.Description).HasMaxLength(500);
         builder.Property(i => i.Price).HasColumnType("decimal(18,2)");
+
+        builder.ToTable(i => i.HasCheckConstraint("CK_MenuItems_Price", "Price >= 0"));
     }
 }
