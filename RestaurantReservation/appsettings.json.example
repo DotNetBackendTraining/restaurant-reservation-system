@@ -1,5 +1,11 @@
 {
-  "ConnectionStrings": {
-    "SQLServerConnection": "Server=...;Database=RestaurantReservationCore;trusted_connection=true;TrustServerCertificate=True"
+  "Database": {
+    "ConnectionStrings": {
+      "SQLServerConnection": "Server=...;Database=RestaurantReservationCore;trusted_connection=true;TrustServerCertificate=True"
+    },
+    "Logging": {
+      "LogLevel": "Information",
+      "EnableSensitiveDataLogging": false
+    }
   }
 }
