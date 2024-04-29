@@ -13,3 +13,6 @@
     - Reservation deletion already cascades from its Customer parent.
     - So, we can either `SetNull` or `Restrict`.
     - The second choice seems more fitting since a reservation shouldn't exist with a table.
+
+- `OpeningHours` in `Restaurant` is a simple string, because:
+    - Its not used in any query of the given requirements.
