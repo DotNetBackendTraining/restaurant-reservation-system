@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using RestaurantReservation.Db;
+using RestaurantReservation.Presentation.Interfaces;
+using RestaurantReservation.Presentation.Services;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace RestaurantReservation.Presentation.Extensions;
 
@@ -24,5 +26,10 @@ public static class ServiceCollectionExtensions
 
             return new RestaurantReservationDbContext(options);
         });
+    }
+
+    public static void InjectPresentation(this IServiceCollection collection)
+    {
+        collection.AddScoped<IExecutor, DynamicExecutor<IGenericController>>();
     }
 }
