@@ -1,9 +1,7 @@
-using AutoFixture.Xunit2;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Test.Common;
+using RestaurantReservation.Test.Services;
 
 namespace RestaurantReservation.Test;
 
@@ -12,10 +10,8 @@ public class RestaurantReservationDbContextIntegrationTests
     [Theory, CustomAutoData(1)]
     public void CustomerDbSet_AddCustomer_AddsAndTracksCustomerCorrectly(Customer customer)
     {
-        var options = new DbContextOptionsBuilder<RestaurantReservationDbContext>()
-            .UseInMemoryDatabase(nameof(CustomerDbSet_AddCustomer_AddsAndTracksCustomerCorrectly))
-            .Options;
-        using var context = new RestaurantReservationDbContext(options);
+        using var context = InMemoryDbContextFactory.CreateDbContext(
+            nameof(CustomerDbSet_AddCustomer_AddsAndTracksCustomerCorrectly));
         customer.CustomerId = 0;
 
         context.Customers.Add(customer);
@@ -28,10 +24,8 @@ public class RestaurantReservationDbContextIntegrationTests
     [Theory, CustomAutoData(1)]
     public void RestaurantDbSet_AddRestaurant_AddsAndTracksRestaurantCorrectly(Restaurant restaurant)
     {
-        var options = new DbContextOptionsBuilder<RestaurantReservationDbContext>()
-            .UseInMemoryDatabase(nameof(RestaurantDbSet_AddRestaurant_AddsAndTracksRestaurantCorrectly))
-            .Options;
-        using var context = new RestaurantReservationDbContext(options);
+        using var context = InMemoryDbContextFactory.CreateDbContext(
+            nameof(RestaurantDbSet_AddRestaurant_AddsAndTracksRestaurantCorrectly));
         restaurant.RestaurantId = 0;
 
         context.Restaurants.Add(restaurant);
