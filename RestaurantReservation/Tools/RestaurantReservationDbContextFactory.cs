@@ -10,7 +10,7 @@ public class RestaurantReservationDbContextFactory : IDesignTimeDbContextFactory
     public RestaurantReservationDbContext CreateDbContext(string[] args)
     {
         var configurationRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        var connectionString = configurationRoot.GetConnectionString("SQLServerConnection");
+        var connectionString = configurationRoot.GetSection("Database").GetConnectionString("SQLServerConnection");
 
         var options = new DbContextOptionsBuilder()
             .UseSqlServer(connectionString)
