@@ -9,9 +9,13 @@ namespace RestaurantReservation.Presentation.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void InjectDatabase(this IServiceCollection collection, IConfiguration configuration)
+    public static void InjectConfiguration(this IServiceCollection collection, IConfiguration databaseConfiguration)
     {
-        collection.AddSingleton<IDbContextFactory>(_ => new DefaultDbContextFactory(configuration));
+        collection.AddSingleton<IDbContextFactory>(_ => new DefaultDbContextFactory(databaseConfiguration));
+    }
+
+    public static void InjectDatabase(this IServiceCollection collection)
+    {
         collection.AddScoped<RestaurantReservationDbContext>(p => p.GetRequiredService<IDbContextFactory>().Create());
     }
 
