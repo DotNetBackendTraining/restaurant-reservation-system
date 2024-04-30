@@ -13,4 +13,6 @@ public class Reservation
     public required DateTime ReservationDate { get; set; }
 
     public required int PartySize { get; set; }
+
+    public ICollection<Order> Orders { get; set; } = [];
 }
