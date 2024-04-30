@@ -1,13 +1,14 @@
 using FluentAssertions;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Test.Common;
+using RestaurantReservation.Test.Common.Customizations;
 using RestaurantReservation.Test.Services;
 
 namespace RestaurantReservation.Test;
 
 public class RestaurantReservationDbContextIntegrationTests
 {
-    [Theory, CustomAutoData(1)]
+    [Theory, CustomAutoData(typeof(DisconnectedCustomerCustomization))]
     public void CustomerDbSet_AddCustomer_AddsAndTracksCustomerCorrectly(Customer customer)
     {
         using var context = InMemoryDbContextFactory.CreateDbContext(
@@ -21,7 +22,7 @@ public class RestaurantReservationDbContextIntegrationTests
         customer.CustomerId.Should().NotBe(0);
     }
 
-    [Theory, CustomAutoData(1)]
+    [Theory, CustomAutoData(typeof(DisconnectedRestaurantCustomization))]
     public void RestaurantDbSet_AddRestaurant_AddsAndTracksRestaurantCorrectly(Restaurant restaurant)
     {
         using var context = InMemoryDbContextFactory.CreateDbContext(
