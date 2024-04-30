@@ -17,6 +17,6 @@ public static class ServiceCollectionExtensions
 
     public static void InjectPresentation(this IServiceCollection collection)
     {
-        collection.AddScoped<IExecutor, DynamicExecutor<IGenericController>>();
+        collection.AddScoped<IGenericController, GenericController>();
     }
 }
