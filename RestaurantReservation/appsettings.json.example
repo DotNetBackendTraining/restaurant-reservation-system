@@ -1,7 +1,7 @@
 {
   "Database": {
     "ConnectionStrings": {
-      "SQLServerConnection": "Server=...;Database=RestaurantReservationCore;trusted_connection=true;TrustServerCertificate=True"
+      "SQLServerConnection": "Server=...;Database=RestaurantReservationCore;trusted_connection=true;TrustServerCertificate=True;MultipleActiveResultSets=true"
     },
     "Logging": {
       "LogLevel": "Information",
