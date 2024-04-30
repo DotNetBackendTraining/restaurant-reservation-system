@@ -47,12 +47,13 @@ public class GenericController : IGenericController
 
         await foreach (var order in orders.AsAsyncEnumerable())
         {
-            var menuItems = context.OrderItems
+            var menuItems = await context.OrderItems
                 .Where(oi => oi.OrderId == order.OrderId)
                 .Select(od => od.MenuItem)
-                .AsAsyncEnumerable();
+                .Distinct()
+                .ToListAsync();
 
-            yield return (order, menuItems);
+            yield return (order, menuItems.ToAsyncEnumerable());
         }
     }
 
