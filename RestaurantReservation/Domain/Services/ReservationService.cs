@@ -14,7 +14,7 @@ public class ReservationService : IReservationService
         _queryRepository = queryRepository;
     }
 
-    public IAsyncEnumerable<Reservation> GetReservationsByCustomer(int customerId)
+    public IAsyncEnumerable<Reservation> GetReservationsByCustomerAsync(int customerId)
     {
         return _queryRepository.GetAll()
             .Where(r => r.CustomerId == customerId)

@@ -31,17 +31,17 @@ public class GenericController : IGenericController
 
     public IAsyncEnumerable<Reservation> GetReservationsByCustomer(int customerId)
     {
-        return _reservationService.GetReservationsByCustomer(customerId);
+        return _reservationService.GetReservationsByCustomerAsync(customerId);
     }
 
     public IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItems(int reservationId)
     {
-        return _orderService.ListOrdersAndMenuItems(reservationId);
+        return _orderService.ListOrdersAndMenuItemsAsync(reservationId);
     }
 
     public IAsyncEnumerable<MenuItem> ListOrderedMenuItems(int reservationId)
     {
-        return _orderService.ListOrderedMenuItems(reservationId);
+        return _orderService.ListOrderedMenuItemsAsync(reservationId);
     }
 
     public async Task<double> CalculateAverageOrderAmount(int employeeId)

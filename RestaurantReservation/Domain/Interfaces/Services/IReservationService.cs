@@ -4,5 +4,5 @@ namespace RestaurantReservation.Domain.Interfaces.Services;
 
 public interface IReservationService
 {
-    IAsyncEnumerable<Reservation> GetReservationsByCustomer(int customerId);
+    IAsyncEnumerable<Reservation> GetReservationsByCustomerAsync(int customerId);
 }

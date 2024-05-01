@@ -14,7 +14,7 @@ public class OrderService : IOrderService
         _queryRepository = queryRepository;
     }
 
-    public async IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItems(int reservationId)
+    public async IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItemsAsync(int reservationId)
     {
         var query = _queryRepository.GetAll()
             .Where(o => o.ReservationId == reservationId)
@@ -34,7 +34,7 @@ public class OrderService : IOrderService
         }
     }
 
-    public IAsyncEnumerable<MenuItem> ListOrderedMenuItems(int reservationId)
+    public IAsyncEnumerable<MenuItem> ListOrderedMenuItemsAsync(int reservationId)
     {
         return _queryRepository.GetAll()
             .Where(o => o.ReservationId == reservationId)
