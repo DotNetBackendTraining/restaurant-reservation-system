@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Domain.Interfaces.Services;
 using RestaurantReservation.Presentation.Interfaces;
@@ -7,18 +6,15 @@ namespace RestaurantReservation.Presentation.Controllers;
 
 public class GenericController : IGenericController
 {
-    private readonly IDbContextFactory _factory;
     private readonly IEmployeeService _employeeService;
     private readonly IReservationService _reservationService;
     private readonly IOrderService _orderService;
 
     public GenericController(
-        IDbContextFactory factory,
         IEmployeeService employeeService,
         IReservationService reservationService,
         IOrderService orderService)
     {
-        _factory = factory;
         _employeeService = employeeService;
         _reservationService = reservationService;
         _orderService = orderService;
