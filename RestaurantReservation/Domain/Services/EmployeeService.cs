@@ -20,4 +20,12 @@ public class EmployeeService : IEmployeeService
             .Where(e => e.Position == "Manager")
             .AsAsyncEnumerable();
     }
+
+    public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
+    {
+        return await _queryRepository.GetAll()
+            .Where(e => e.EmployeeId == employeeId)
+            .SelectMany(e => e.Orders)
+            .AverageAsync(o => o.TotalAmount);
+    }
 }

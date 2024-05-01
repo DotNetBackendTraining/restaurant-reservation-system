@@ -46,10 +46,6 @@ public class GenericController : IGenericController
 
     public async Task<double> CalculateAverageOrderAmount(int employeeId)
     {
-        await using var context = _factory.Create();
-        return await context.Employees
-            .Where(e => e.EmployeeId == employeeId)
-            .SelectMany(e => e.Orders)
-            .AverageAsync(o => o.TotalAmount);
+        return await _employeeService.CalculateAverageOrderAmountAsync(employeeId);
     }
 }
