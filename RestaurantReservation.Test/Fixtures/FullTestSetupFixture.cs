@@ -17,6 +17,7 @@ public class FullTestSetupFixture : IDisposable
 
         InjectConfiguration(serviceCollection); // Test configuration
         serviceCollection.InjectDatabase();
+        serviceCollection.InjectDomain();
         serviceCollection.InjectPresentation();
         ServiceProvider = serviceCollection.BuildServiceProvider();
     }

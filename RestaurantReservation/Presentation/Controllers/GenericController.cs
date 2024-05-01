@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Models;
+using RestaurantReservation.Domain.Interfaces.Services;
 using RestaurantReservation.Presentation.Interfaces;
 
 namespace RestaurantReservation.Presentation.Controllers;
@@ -7,23 +8,19 @@ namespace RestaurantReservation.Presentation.Controllers;
 public class GenericController : IGenericController
 {
     private readonly IDbContextFactory _factory;
+    private readonly IEmployeeService _employeeService;
 
-    public GenericController(IDbContextFactory factory)
+    public GenericController(
+        IDbContextFactory factory,
+        IEmployeeService employeeService)
     {
         _factory = factory;
+        _employeeService = employeeService;
     }
 
-    public async IAsyncEnumerable<Employee> ListManagers()
+    public IAsyncEnumerable<Employee> ListManagers()
     {
-        await using var context = _factory.Create();
-        var query = context.Employees
-            .Where(employee => employee.Position == "Manager")
-            .AsAsyncEnumerable();
-
-        await foreach (var manager in query)
-        {
-            yield return manager;
-        }
+        return _employeeService.GetAllManagersAsync();
     }
 
     public async IAsyncEnumerable<Reservation> GetReservationsByCustomer(int customerId)

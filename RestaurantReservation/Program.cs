@@ -10,6 +10,7 @@ var databaseConfiguration = configuration.GetSection("Database");
 var services = new ServiceCollection();
 services.InjectConfiguration(databaseConfiguration);
 services.InjectDatabase();
+services.InjectDomain();
 services.InjectPresentation();
 var provider = services.BuildServiceProvider();
 
