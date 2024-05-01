@@ -10,15 +10,18 @@ public class GenericController : IGenericController
     private readonly IDbContextFactory _factory;
     private readonly IEmployeeService _employeeService;
     private readonly IReservationService _reservationService;
+    private readonly IOrderService _orderService;
 
     public GenericController(
         IDbContextFactory factory,
         IEmployeeService employeeService,
-        IReservationService reservationService)
+        IReservationService reservationService,
+        IOrderService orderService)
     {
         _factory = factory;
         _employeeService = employeeService;
         _reservationService = reservationService;
+        _orderService = orderService;
     }
 
     public IAsyncEnumerable<Employee> ListManagers()
@@ -31,22 +34,9 @@ public class GenericController : IGenericController
         return _reservationService.GetReservationsByCustomer(customerId);
     }
 
-    public async IAsyncEnumerable<(Order, IAsyncEnumerable<MenuItem>)> ListOrdersAndMenuItems(int reservationId)
+    public IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItems(int reservationId)
     {
-        await using var context = _factory.Create();
-        var orders = context.Orders
-            .Where(o => o.ReservationId == reservationId);
-
-        await foreach (var order in orders.AsAsyncEnumerable())
-        {
-            var menuItems = await context.OrderItems
-                .Where(oi => oi.OrderId == order.OrderId)
-                .Select(od => od.MenuItem)
-                .Distinct()
-                .ToListAsync();
-
-            yield return (order, menuItems.ToAsyncEnumerable());
-        }
+        return _orderService.ListOrdersAndMenuItems(reservationId);
     }
 
     public async IAsyncEnumerable<MenuItem> ListOrderedMenuItems(int reservationId)

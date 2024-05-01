@@ -20,7 +20,7 @@ public interface IGenericController
     /// <summary>
     /// This method takes a reservation identifier as a parameter and lists the orders placed on that specific reservation along with the associated menu items.
     /// </summary>
-    IAsyncEnumerable<(Order, IAsyncEnumerable<MenuItem>)> ListOrdersAndMenuItems(int reservationId);
+    IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItems(int reservationId);
 
     /// <summary>
     /// This method takes a reservation identifier as a parameter and finds the menu items ordered in that specific reservation.

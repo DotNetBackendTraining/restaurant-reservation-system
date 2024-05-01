@@ -33,6 +33,10 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<ICommandRepository<Reservation>, CommandRepository<Reservation>>();
         collection.AddScoped<IQueryRepository<Reservation>, QueryRepository<Reservation>>();
         collection.AddScoped<IReservationService, ReservationService>();
+
+        collection.AddScoped<ICommandRepository<Order>, CommandRepository<Order>>();
+        collection.AddScoped<IQueryRepository<Order>, QueryRepository<Order>>();
+        collection.AddScoped<IOrderService, OrderService>();
     }
 
     public static void InjectPresentation(this IServiceCollection collection)
