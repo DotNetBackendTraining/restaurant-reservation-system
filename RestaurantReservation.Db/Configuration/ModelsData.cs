@@ -1,6 +1,6 @@
 using RestaurantReservation.Db.Models;
 
-namespace RestaurantReservation.Test.Data;
+namespace RestaurantReservation.Db.Configuration;
 
 public static class ModelsData
 {

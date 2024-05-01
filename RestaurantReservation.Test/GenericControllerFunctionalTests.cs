@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Presentation.Interfaces;
-using RestaurantReservation.Test.Data;
 using RestaurantReservation.Test.Fixtures;
 using FluentAssertions;
+using RestaurantReservation.Db.Configuration;
 
 namespace RestaurantReservation.Test;
 

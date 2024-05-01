@@ -15,32 +15,6 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 
         builder.HasIndex(c => c.Email).IsUnique();
 
-        builder.HasData(
-            new Customer
-            {
-                CustomerId = 1, FirstName = "John", LastName = "Doe", Email = "johndoe@example.com",
-                PhoneNumber = "123-456-7890"
-            },
-            new Customer
-            {
-                CustomerId = 2, FirstName = "Jane", LastName = "Smith", Email = "janesmith@example.com",
-                PhoneNumber = "234-567-8901"
-            },
-            new Customer
-            {
-                CustomerId = 3, FirstName = "Bob", LastName = "Johnson", Email = "bobjohnson@example.com",
-                PhoneNumber = "345-678-9012"
-            },
-            new Customer
-            {
-                CustomerId = 4, FirstName = "Alice", LastName = "Williams", Email = "alicewilliams@example.com",
-                PhoneNumber = "456-789-0123"
-            },
-            new Customer
-            {
-                CustomerId = 5, FirstName = "Steve", LastName = "Brown", Email = "stevebrown@example.com",
-                PhoneNumber = "567-890-1234"
-            }
-        );
+        builder.HasData(ModelsData.Customers());
     }
 }
