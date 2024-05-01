@@ -5,18 +5,17 @@ using RestaurantReservation.Presentation.Interfaces;
 
 namespace RestaurantReservation.Test.Services;
 
-public class SqliteDbContextFactory : IDbContextFactory, IDisposable
+/// <summary>
+/// Does not control the connection. Open it and close it separately.
+/// </summary>
+public class SqliteDbContextFactory : IDbContextFactory
 {
-    private readonly SqliteConnection _connection;
     private readonly DbContextOptions _options;
 
-    public SqliteDbContextFactory()
+    public SqliteDbContextFactory(SqliteConnection connection)
     {
-        _connection = new SqliteConnection("DataSource=:memory:");
-        _connection.Open(); // Open connection to keep the in-memory database alive
-
         _options = new DbContextOptionsBuilder()
-            .UseSqlite(_connection)
+            .UseSqlite(connection)
             .Options;
 
         using var context = Create();
@@ -26,11 +25,5 @@ public class SqliteDbContextFactory : IDbContextFactory, IDisposable
     public RestaurantReservationDbContext Create()
     {
         return new RestaurantReservationDbContext(_options);
-    }
-
-    public void Dispose()
-    {
-        GC.SuppressFinalize(this);
-        _connection.Close();
     }
 }
