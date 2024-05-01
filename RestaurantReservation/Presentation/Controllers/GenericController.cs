@@ -9,13 +9,16 @@ public class GenericController : IGenericController
 {
     private readonly IDbContextFactory _factory;
     private readonly IEmployeeService _employeeService;
+    private readonly IReservationService _reservationService;
 
     public GenericController(
         IDbContextFactory factory,
-        IEmployeeService employeeService)
+        IEmployeeService employeeService,
+        IReservationService reservationService)
     {
         _factory = factory;
         _employeeService = employeeService;
+        _reservationService = reservationService;
     }
 
     public IAsyncEnumerable<Employee> ListManagers()
@@ -23,17 +26,9 @@ public class GenericController : IGenericController
         return _employeeService.GetAllManagersAsync();
     }
 
-    public async IAsyncEnumerable<Reservation> GetReservationsByCustomer(int customerId)
+    public IAsyncEnumerable<Reservation> GetReservationsByCustomer(int customerId)
     {
-        await using var context = _factory.Create();
-        var query = context.Reservations
-            .Where(reservation => reservation.CustomerId == customerId)
-            .AsAsyncEnumerable();
-
-        await foreach (var reservation in query)
-        {
-            yield return reservation;
-        }
+        return _reservationService.GetReservationsByCustomer(customerId);
     }
 
     public async IAsyncEnumerable<(Order, IAsyncEnumerable<MenuItem>)> ListOrdersAndMenuItems(int reservationId)

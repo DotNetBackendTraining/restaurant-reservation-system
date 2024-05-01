@@ -29,6 +29,10 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<ICommandRepository<Employee>, CommandRepository<Employee>>();
         collection.AddScoped<IQueryRepository<Employee>, QueryRepository<Employee>>();
         collection.AddScoped<IEmployeeService, EmployeeService>();
+
+        collection.AddScoped<ICommandRepository<Reservation>, CommandRepository<Reservation>>();
+        collection.AddScoped<IQueryRepository<Reservation>, QueryRepository<Reservation>>();
+        collection.AddScoped<IReservationService, ReservationService>();
     }
 
     public static void InjectPresentation(this IServiceCollection collection)
