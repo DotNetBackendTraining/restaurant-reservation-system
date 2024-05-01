@@ -39,20 +39,9 @@ public class GenericController : IGenericController
         return _orderService.ListOrdersAndMenuItems(reservationId);
     }
 
-    public async IAsyncEnumerable<MenuItem> ListOrderedMenuItems(int reservationId)
+    public IAsyncEnumerable<MenuItem> ListOrderedMenuItems(int reservationId)
     {
-        await using var context = _factory.Create();
-        var query = context.Reservations
-            .Where(reservation => reservation.ReservationId == reservationId)
-            .SelectMany(reservation => reservation.Orders)
-            .SelectMany(order => order.OrderItems)
-            .Select(orderItem => orderItem.MenuItem)
-            .Distinct();
-
-        await foreach (var menuItem in query.AsAsyncEnumerable())
-        {
-            yield return menuItem;
-        }
+        return _orderService.ListOrderedMenuItems(reservationId);
     }
 
     public async Task<double> CalculateAverageOrderAmount(int employeeId)

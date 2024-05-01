@@ -33,4 +33,14 @@ public class OrderService : IOrderService
             yield return (pair.Order, pair.MenuItems);
         }
     }
+
+    public IAsyncEnumerable<MenuItem> ListOrderedMenuItems(int reservationId)
+    {
+        return _queryRepository.GetAll()
+            .Where(o => o.ReservationId == reservationId)
+            .SelectMany(order => order.OrderItems)
+            .Select(orderItem => orderItem.MenuItem)
+            .Distinct()
+            .AsAsyncEnumerable();
+    }
 }
