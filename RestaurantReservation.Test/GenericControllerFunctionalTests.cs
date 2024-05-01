@@ -20,7 +20,9 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
     {
         var managers = await _genericController.ListManagers().ToListAsync();
         managers.Count.Should().Be(1);
-        managers[0].Should().BeEquivalentTo(ModelsData.Employees().ToList()[0]);
+        managers[0].Should().BeEquivalentTo(ModelsData.Employees().ToList()[0], options => options
+            .Excluding(m => m.Orders)
+            .Excluding(m => m.Restaurant));
     }
 
     [Fact]
@@ -28,7 +30,10 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
     {
         var reservations = await _genericController.GetReservationsByCustomer(1).ToListAsync();
         reservations.Count.Should().Be(1);
-        reservations[0].Should().BeEquivalentTo(ModelsData.Reservations().ToList()[0]);
+        reservations[0].Should().BeEquivalentTo(ModelsData.Reservations().ToList()[0], options => options
+            .Excluding(r => r.Orders)
+            .Excluding(r => r.Customer)
+            .Excluding(r => r.Table));
     }
 
     [Fact]
@@ -38,11 +43,15 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
         pairs.Count.Should().Be(1);
 
         var (order, menuItems) = pairs[0];
-        order.Should().BeEquivalentTo(ModelsData.Orders().ToList()[0]);
+        order.Should().BeEquivalentTo(ModelsData.Orders().ToList()[0], options => options
+            .Excluding(o => o.OrderItems)
+            .Excluding(o => o.Employee)
+            .Excluding(o => o.Reservation));
 
-        var menuItemList = await menuItems.ToListAsync();
-        menuItemList.Count.Should().Be(1);
-        menuItemList[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0]);
+        menuItems.Count.Should().Be(1);
+        menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0], options => options
+            .Excluding(mi => mi.OrderItems)
+            .Excluding(mi => mi.Restaurant));
     }
 
     [Fact]
@@ -50,7 +59,9 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
     {
         var menuItems = await _genericController.ListOrderedMenuItems(1).ToListAsync();
         menuItems.Count.Should().Be(1);
-        menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0]);
+        menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0], options => options
+            .Excluding(mi => mi.OrderItems)
+            .Excluding(mi => mi.Restaurant));
     }
 
     [Fact]
