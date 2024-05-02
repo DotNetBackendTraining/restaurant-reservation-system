@@ -6,7 +6,6 @@ using RestaurantReservation.Application.Services;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Interfaces.Repositories;
 using RestaurantReservation.Db.Repositories;
-using RestaurantReservation.Presentation.Controllers;
 using RestaurantReservation.Presentation.Interfaces;
 using RestaurantReservation.Presentation.Services;
 
@@ -41,6 +40,5 @@ public static class ServiceCollectionExtensions
 
     public static void InjectPresentation(this IServiceCollection collection)
     {
-        collection.AddScoped<IGenericController, GenericController>();
     }
 }
