@@ -22,5 +22,8 @@ public class MapperProfile : Profile
 
         CreateMap<ReservationDetail, ReservationDetailDto>();
         CreateMap<ReservationDetailDto, ReservationDetail>();
+
+        CreateMap<EmployeeRestaurantDetail, EmployeeRestaurantDetailDto>();
+        CreateMap<EmployeeRestaurantDetailDto, EmployeeRestaurantDetail>();
     }
 }
