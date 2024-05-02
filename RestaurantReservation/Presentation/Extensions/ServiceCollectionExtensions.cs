@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Application.Services;
 using RestaurantReservation.Db;
-using RestaurantReservation.Db.Models;
 using RestaurantReservation.Domain.Interfaces.Repositories;
 using RestaurantReservation.Domain.Repositories;
 using RestaurantReservation.Presentation.Controllers;
@@ -26,16 +25,11 @@ public static class ServiceCollectionExtensions
 
     public static void InjectDomain(this IServiceCollection collection)
     {
-        collection.AddScoped<ICommandRepository<Employee>, CommandRepository<Employee>>();
-        collection.AddScoped<IQueryRepository<Employee>, QueryRepository<Employee>>();
+        collection.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
+        collection.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
+
         collection.AddScoped<IEmployeeService, EmployeeService>();
-
-        collection.AddScoped<ICommandRepository<Reservation>, CommandRepository<Reservation>>();
-        collection.AddScoped<IQueryRepository<Reservation>, QueryRepository<Reservation>>();
         collection.AddScoped<IReservationService, ReservationService>();
-
-        collection.AddScoped<ICommandRepository<Order>, CommandRepository<Order>>();
-        collection.AddScoped<IQueryRepository<Order>, QueryRepository<Order>>();
         collection.AddScoped<IOrderService, OrderService>();
     }
 
