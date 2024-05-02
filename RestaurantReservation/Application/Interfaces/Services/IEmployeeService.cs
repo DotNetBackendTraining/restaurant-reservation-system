@@ -6,5 +6,7 @@ public interface IEmployeeService
 {
     IAsyncEnumerable<EmployeeDto> GetAllManagersAsync();
 
+    Task<EmployeeRestaurantDetailDto> GetEmployeeRestaurantDetailAsync(int employeeId);
+
     Task<double> CalculateAverageOrderAmountAsync(int employeeId);
 }

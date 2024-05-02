@@ -9,15 +9,18 @@ namespace RestaurantReservation.Application.Services;
 
 public class EmployeeService : IEmployeeService
 {
-    private readonly IQueryRepository<Employee> _queryRepository;
     private readonly IMapper _mapper;
+    private readonly IQueryRepository<Employee> _queryRepository;
+    private readonly IQueryRepository<EmployeeRestaurantDetail> _detailQueryRepository;
 
     public EmployeeService(
+        IMapper mapper,
         IQueryRepository<Employee> queryRepository,
-        IMapper mapper)
+        IQueryRepository<EmployeeRestaurantDetail> detailQueryRepository)
     {
-        _queryRepository = queryRepository;
         _mapper = mapper;
+        _queryRepository = queryRepository;
+        _detailQueryRepository = detailQueryRepository;
     }
 
     public IAsyncEnumerable<EmployeeDto> GetAllManagersAsync()
@@ -26,6 +29,12 @@ public class EmployeeService : IEmployeeService
             .Where(e => e.Position == "Manager")
             .AsAsyncEnumerable()
             .Select(e => _mapper.Map<EmployeeDto>(e));
+    }
+
+    public async Task<EmployeeRestaurantDetailDto> GetEmployeeRestaurantDetailAsync(int employeeId)
+    {
+        var employeeRestaurantDetail = await _detailQueryRepository.FindAsync(employeeId);
+        return _mapper.Map<EmployeeRestaurantDetailDto>(employeeRestaurantDetail);
     }
 
     public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
