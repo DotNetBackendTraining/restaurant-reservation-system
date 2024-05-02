@@ -1,6 +1,6 @@
 using RestaurantReservation.Db.Models;
 
-namespace RestaurantReservation.Domain.Interfaces.Services;
+namespace RestaurantReservation.Application.Interfaces.Services;
 
 public interface IOrderService
 {

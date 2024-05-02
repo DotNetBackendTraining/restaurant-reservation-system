@@ -1,11 +1,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestaurantReservation.Application.Interfaces.Services;
+using RestaurantReservation.Application.Services;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Domain.Interfaces.Repositories;
-using RestaurantReservation.Domain.Interfaces.Services;
 using RestaurantReservation.Domain.Repositories;
-using RestaurantReservation.Domain.Services;
 using RestaurantReservation.Presentation.Controllers;
 using RestaurantReservation.Presentation.Interfaces;
 using RestaurantReservation.Presentation.Services;

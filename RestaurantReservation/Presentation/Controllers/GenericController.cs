@@ -1,5 +1,5 @@
+using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Db.Models;
-using RestaurantReservation.Domain.Interfaces.Services;
 using RestaurantReservation.Presentation.Interfaces;
 
 namespace RestaurantReservation.Presentation.Controllers;

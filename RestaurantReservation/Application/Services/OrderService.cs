@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Domain.Interfaces.Repositories;
-using RestaurantReservation.Domain.Interfaces.Services;
 
-namespace RestaurantReservation.Domain.Services;
+namespace RestaurantReservation.Application.Services;
 
 public class OrderService : IOrderService
 {
