@@ -1,8 +1,8 @@
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Application.DTOs;
 
 namespace RestaurantReservation.Application.Interfaces.Services;
 
 public interface IReservationService
 {
-    IAsyncEnumerable<Reservation> GetReservationsByCustomerAsync(int customerId);
+    IAsyncEnumerable<ReservationDto> GetReservationsByCustomerAsync(int customerId);
 }

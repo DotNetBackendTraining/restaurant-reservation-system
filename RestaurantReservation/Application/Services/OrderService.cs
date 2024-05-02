@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Application.DTOs;
 using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Domain.Interfaces.Repositories;
@@ -8,15 +10,19 @@ namespace RestaurantReservation.Application.Services;
 public class OrderService : IOrderService
 {
     private readonly IQueryRepository<Order> _queryRepository;
+    private readonly IMapper _mapper;
 
-    public OrderService(IQueryRepository<Order> queryRepository)
+    public OrderService(
+        IQueryRepository<Order> queryRepository,
+        IMapper mapper)
     {
         _queryRepository = queryRepository;
+        _mapper = mapper;
     }
 
-    public async IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItemsAsync(int reservationId)
+    public IAsyncEnumerable<FullOrderDto> ListOrdersAndMenuItemsAsync(int reservationId)
     {
-        var query = _queryRepository.GetAll()
+        return _queryRepository.GetAll()
             .Where(o => o.ReservationId == reservationId)
             .Select(o => new
             {
@@ -26,21 +32,21 @@ public class OrderService : IOrderService
                     .SelectMany(o1 => o1.OrderItems)
                     .Select(oi => oi.MenuItem)
                     .ToList()
-            });
-
-        await foreach (var pair in query.AsAsyncEnumerable())
-        {
-            yield return (pair.Order, pair.MenuItems);
-        }
+            })
+            .AsAsyncEnumerable()
+            .Select(pair => new FullOrderDto(
+                _mapper.Map<OrderDto>(pair.Order),
+                pair.MenuItems.Select(mi => _mapper.Map<MenuItemDto>(mi)).ToList()));
     }
 
-    public IAsyncEnumerable<MenuItem> ListOrderedMenuItemsAsync(int reservationId)
+    public IAsyncEnumerable<MenuItemDto> ListOrderedMenuItemsAsync(int reservationId)
     {
         return _queryRepository.GetAll()
             .Where(o => o.ReservationId == reservationId)
             .SelectMany(order => order.OrderItems)
             .Select(orderItem => orderItem.MenuItem)
             .Distinct()
-            .AsAsyncEnumerable();
+            .AsAsyncEnumerable()
+            .Select(mi => _mapper.Map<MenuItemDto>(mi));
     }
 }

@@ -21,8 +21,7 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
         var managers = await _genericController.ListManagers().ToListAsync();
         managers.Count.Should().Be(1);
         managers[0].Should().BeEquivalentTo(ModelsData.Employees().ToList()[0], options => options
-            .Excluding(m => m.Orders)
-            .Excluding(m => m.Restaurant));
+            .ExcludingMissingMembers());
     }
 
     [Fact]
@@ -31,9 +30,7 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
         var reservations = await _genericController.GetReservationsByCustomer(1).ToListAsync();
         reservations.Count.Should().Be(1);
         reservations[0].Should().BeEquivalentTo(ModelsData.Reservations().ToList()[0], options => options
-            .Excluding(r => r.Orders)
-            .Excluding(r => r.Customer)
-            .Excluding(r => r.Table));
+            .ExcludingMissingMembers());
     }
 
     [Fact]
@@ -44,14 +41,11 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
 
         var (order, menuItems) = pairs[0];
         order.Should().BeEquivalentTo(ModelsData.Orders().ToList()[0], options => options
-            .Excluding(o => o.OrderItems)
-            .Excluding(o => o.Employee)
-            .Excluding(o => o.Reservation));
+            .ExcludingMissingMembers());
 
         menuItems.Count.Should().Be(1);
         menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0], options => options
-            .Excluding(mi => mi.OrderItems)
-            .Excluding(mi => mi.Restaurant));
+            .ExcludingMissingMembers());
     }
 
     [Fact]
@@ -60,8 +54,7 @@ public class ProgramFunctionalTests : IClassFixture<FullTestSetupFixture>
         var menuItems = await _genericController.ListOrderedMenuItems(1).ToListAsync();
         menuItems.Count.Should().Be(1);
         menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0], options => options
-            .Excluding(mi => mi.OrderItems)
-            .Excluding(mi => mi.Restaurant));
+            .ExcludingMissingMembers());
     }
 
     [Fact]

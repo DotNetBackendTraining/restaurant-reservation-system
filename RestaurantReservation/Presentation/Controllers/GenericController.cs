@@ -1,5 +1,5 @@
+using RestaurantReservation.Application.DTOs;
 using RestaurantReservation.Application.Interfaces.Services;
-using RestaurantReservation.Db.Models;
 using RestaurantReservation.Presentation.Interfaces;
 
 namespace RestaurantReservation.Presentation.Controllers;
@@ -20,22 +20,22 @@ public class GenericController : IGenericController
         _orderService = orderService;
     }
 
-    public IAsyncEnumerable<Employee> ListManagers()
+    public IAsyncEnumerable<EmployeeDto> ListManagers()
     {
         return _employeeService.GetAllManagersAsync();
     }
 
-    public IAsyncEnumerable<Reservation> GetReservationsByCustomer(int customerId)
+    public IAsyncEnumerable<ReservationDto> GetReservationsByCustomer(int customerId)
     {
         return _reservationService.GetReservationsByCustomerAsync(customerId);
     }
 
-    public IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItems(int reservationId)
+    public IAsyncEnumerable<FullOrderDto> ListOrdersAndMenuItems(int reservationId)
     {
         return _orderService.ListOrdersAndMenuItemsAsync(reservationId);
     }
 
-    public IAsyncEnumerable<MenuItem> ListOrderedMenuItems(int reservationId)
+    public IAsyncEnumerable<MenuItemDto> ListOrderedMenuItems(int reservationId)
     {
         return _orderService.ListOrderedMenuItemsAsync(reservationId);
     }

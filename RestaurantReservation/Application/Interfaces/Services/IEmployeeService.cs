@@ -1,10 +1,10 @@
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Application.DTOs;
 
 namespace RestaurantReservation.Application.Interfaces.Services;
 
 public interface IEmployeeService
 {
-    IAsyncEnumerable<Employee> GetAllManagersAsync();
+    IAsyncEnumerable<EmployeeDto> GetAllManagersAsync();
 
     Task<double> CalculateAverageOrderAmountAsync(int employeeId);
 }

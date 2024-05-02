@@ -1,10 +1,10 @@
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Application.DTOs;
 
 namespace RestaurantReservation.Application.Interfaces.Services;
 
 public interface IOrderService
 {
-    IAsyncEnumerable<(Order, IList<MenuItem>)> ListOrdersAndMenuItemsAsync(int reservationId);
+    IAsyncEnumerable<FullOrderDto> ListOrdersAndMenuItemsAsync(int reservationId);
 
-    IAsyncEnumerable<MenuItem> ListOrderedMenuItemsAsync(int reservationId);
+    IAsyncEnumerable<MenuItemDto> ListOrderedMenuItemsAsync(int reservationId);
 }

@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Application.DTOs;
 using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Db.Models;
 using RestaurantReservation.Domain.Interfaces.Repositories;
@@ -8,17 +10,22 @@ namespace RestaurantReservation.Application.Services;
 public class EmployeeService : IEmployeeService
 {
     private readonly IQueryRepository<Employee> _queryRepository;
+    private readonly IMapper _mapper;
 
-    public EmployeeService(IQueryRepository<Employee> queryRepository)
+    public EmployeeService(
+        IQueryRepository<Employee> queryRepository,
+        IMapper mapper)
     {
         _queryRepository = queryRepository;
+        _mapper = mapper;
     }
 
-    public IAsyncEnumerable<Employee> GetAllManagersAsync()
+    public IAsyncEnumerable<EmployeeDto> GetAllManagersAsync()
     {
         return _queryRepository.GetAll()
             .Where(e => e.Position == "Manager")
-            .AsAsyncEnumerable();
+            .AsAsyncEnumerable()
+            .Select(e => _mapper.Map<EmployeeDto>(e));
     }
 
     public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
