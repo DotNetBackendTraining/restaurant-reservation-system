@@ -19,5 +19,8 @@ public class MapperProfile : Profile
 
         CreateMap<Reservation, ReservationDto>();
         CreateMap<ReservationDto, Reservation>();
+
+        CreateMap<ReservationDetail, ReservationDetailDto>();
+        CreateMap<ReservationDetailDto, ReservationDetail>();
     }
 }
