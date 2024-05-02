@@ -11,6 +11,7 @@ var services = new ServiceCollection();
 services.InjectConfiguration(databaseConfiguration);
 services.InjectDatabase();
 services.InjectDomain();
+services.InjectApplication();
 services.InjectPresentation();
 var provider = services.BuildServiceProvider();
 

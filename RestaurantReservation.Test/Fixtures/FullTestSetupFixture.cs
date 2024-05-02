@@ -19,6 +19,7 @@ public class FullTestSetupFixture : IDisposable
         serviceCollection.InjectDatabase();
         serviceCollection.InjectDomain();
         serviceCollection.InjectPresentation();
+        serviceCollection.InjectApplication();
         ServiceProvider = serviceCollection.BuildServiceProvider();
     }
 
