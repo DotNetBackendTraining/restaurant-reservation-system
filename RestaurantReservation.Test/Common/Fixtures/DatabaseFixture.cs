@@ -1,8 +1,8 @@
 using Microsoft.Data.Sqlite;
 using RestaurantReservation.Presentation.Interfaces;
-using RestaurantReservation.Test.Services;
+using RestaurantReservation.Test.Common.Services;
 
-namespace RestaurantReservation.Test.Fixtures;
+namespace RestaurantReservation.Test.Common.Fixtures;
 
 /// <summary>
 /// Use when you want to share a database instance across multiple tests

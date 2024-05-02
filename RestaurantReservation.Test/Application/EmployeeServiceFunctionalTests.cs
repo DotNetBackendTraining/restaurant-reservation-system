@@ -2,7 +2,7 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Db.Configuration;
-using RestaurantReservation.Test.Fixtures;
+using RestaurantReservation.Test.Common.Fixtures;
 
 namespace RestaurantReservation.Test.Application;
 

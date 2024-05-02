@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Presentation.Extensions;
 using RestaurantReservation.Presentation.Interfaces;
 
-namespace RestaurantReservation.Test.Fixtures;
+namespace RestaurantReservation.Test.Common.Fixtures;
 
 /// <summary>
 /// Complete test setup, with all dependencies, and sample database.

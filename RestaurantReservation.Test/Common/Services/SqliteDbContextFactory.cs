@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db;
 using RestaurantReservation.Presentation.Interfaces;
 
-namespace RestaurantReservation.Test.Services;
+namespace RestaurantReservation.Test.Common.Services;
 
 /// <summary>
 /// Does not control the connection. Open it and close it separately.

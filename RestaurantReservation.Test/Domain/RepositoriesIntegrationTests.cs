@@ -6,7 +6,7 @@ using RestaurantReservation.Db.Repositories;
 using RestaurantReservation.Presentation.Interfaces;
 using RestaurantReservation.Test.Common;
 using RestaurantReservation.Test.Common.Customizations;
-using RestaurantReservation.Test.Services;
+using RestaurantReservation.Test.Common.Services;
 
 namespace RestaurantReservation.Test.Domain;
 
