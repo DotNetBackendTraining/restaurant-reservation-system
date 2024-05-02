@@ -8,7 +8,7 @@ using RestaurantReservation.Test.Common;
 using RestaurantReservation.Test.Common.Customizations;
 using RestaurantReservation.Test.Services;
 
-namespace RestaurantReservation.Test;
+namespace RestaurantReservation.Test.Domain;
 
 public class RepositoriesIntegrationTests : IDisposable
 {
