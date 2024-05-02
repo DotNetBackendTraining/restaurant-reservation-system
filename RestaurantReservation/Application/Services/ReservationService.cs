@@ -9,15 +9,18 @@ namespace RestaurantReservation.Application.Services;
 
 public class ReservationService : IReservationService
 {
-    private readonly IQueryRepository<Reservation> _queryRepository;
     private readonly IMapper _mapper;
+    private readonly IQueryRepository<Reservation> _queryRepository;
+    private readonly IQueryRepository<ReservationDetail> _detailQueryRepository;
 
     public ReservationService(
+        IMapper mapper,
         IQueryRepository<Reservation> queryRepository,
-        IMapper mapper)
+        IQueryRepository<ReservationDetail> detailQueryRepository)
     {
-        _queryRepository = queryRepository;
         _mapper = mapper;
+        _queryRepository = queryRepository;
+        _detailQueryRepository = detailQueryRepository;
     }
 
     public IAsyncEnumerable<ReservationDto> GetReservationsByCustomerAsync(int customerId)
@@ -26,5 +29,11 @@ public class ReservationService : IReservationService
             .Where(r => r.CustomerId == customerId)
             .AsAsyncEnumerable()
             .Select(r => _mapper.Map<ReservationDto>(r));
+    }
+
+    public async Task<ReservationDetailDto?> GetReservationDetailAsync(int reservationId)
+    {
+        var reservationDetail = await _detailQueryRepository.FindAsync(reservationId);
+        return _mapper.Map<ReservationDetailDto>(reservationDetail);
     }
 }
