@@ -1,7 +1,6 @@
-using RestaurantReservation.Db;
-using RestaurantReservation.Domain.Interfaces.Repositories;
+using RestaurantReservation.Db.Interfaces.Repositories;
 
-namespace RestaurantReservation.Domain.Repositories;
+namespace RestaurantReservation.Db.Repositories;
 
 public class QueryRepository<TEntity> : IQueryRepository<TEntity>
     where TEntity : class
