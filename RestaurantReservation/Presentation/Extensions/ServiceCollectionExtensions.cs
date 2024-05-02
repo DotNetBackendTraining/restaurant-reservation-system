@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestaurantReservation.Application;
 using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Application.Services;
 using RestaurantReservation.Db;
@@ -34,6 +35,8 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<IEmployeeService, EmployeeService>();
         collection.AddScoped<IReservationService, ReservationService>();
         collection.AddScoped<IOrderService, OrderService>();
+
+        collection.AddAutoMapper(typeof(MapperProfile));
     }
 
     public static void InjectPresentation(this IServiceCollection collection)
