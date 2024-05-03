@@ -1,6 +1,4 @@
-using System.Collections;
-
-namespace RestaurantReservation.Db.Models;
+namespace RestaurantReservation.Domain.Models;
 
 public class Table
 {

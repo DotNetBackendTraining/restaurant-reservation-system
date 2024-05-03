@@ -1,6 +1,6 @@
 using AutoMapper;
 using RestaurantReservation.Application.DTOs;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Domain.Models;
 
 namespace RestaurantReservation.Application;
 

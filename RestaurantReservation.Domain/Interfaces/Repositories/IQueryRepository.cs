@@ -1,4 +1,4 @@
-namespace RestaurantReservation.Db.Interfaces.Repositories;
+namespace RestaurantReservation.Domain.Interfaces.Repositories;
 
 public interface IQueryRepository<TEntity>
     where TEntity : class

@@ -1,4 +1,4 @@
-using RestaurantReservation.Db.Interfaces.Repositories;
+using RestaurantReservation.Domain.Interfaces.Repositories;
 
 namespace RestaurantReservation.Db.Repositories;
 

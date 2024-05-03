@@ -2,8 +2,8 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Application.DTOs;
 using RestaurantReservation.Application.Interfaces.Services;
-using RestaurantReservation.Db.Interfaces.Repositories;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Domain.Interfaces.Repositories;
+using RestaurantReservation.Domain.Models;
 
 namespace RestaurantReservation.Application.Services;
 

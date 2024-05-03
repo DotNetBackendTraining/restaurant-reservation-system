@@ -1,5 +1,5 @@
 using AutoFixture;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Domain.Models;
 
 namespace RestaurantReservation.Test.Common.Customizations;
 

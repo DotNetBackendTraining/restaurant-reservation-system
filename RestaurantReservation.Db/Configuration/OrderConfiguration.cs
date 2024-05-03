@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RestaurantReservation.Db.Models;
+using RestaurantReservation.Domain.Models;
 
 namespace RestaurantReservation.Db.Configuration;
 
