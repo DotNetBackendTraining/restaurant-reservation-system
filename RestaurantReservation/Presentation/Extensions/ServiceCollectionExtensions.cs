@@ -26,8 +26,6 @@ public static class ServiceCollectionExtensions
     public static void InjectDomain(this IServiceCollection collection)
     {
         collection.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
-        collection.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
-
         collection.AddScoped<IEmployeeRepository, EmployeeRepository>();
         collection.AddScoped<IOrderRepository, OrderRepository>();
         collection.AddScoped<IReservationRepository, ReservationRepository>();

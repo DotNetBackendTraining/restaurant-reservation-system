@@ -57,21 +57,20 @@ public class RepositoriesIntegrationTests : IDisposable
     {
         await using var context = _contextFactory.Create();
         var commandRepository = new CommandRepository<Customer>(context);
-        var queryRepository = new QueryRepository<Customer>(context);
         customer.CustomerId = 0;
 
         // Add
         commandRepository.Add(customer);
 
         // Return null
-        var customerBefore = await queryRepository.FindAsync(customer.CustomerId);
+        var customerBefore = await context.FindAsync<Customer>(customer.CustomerId);
         customerBefore.Should().BeNull();
 
         // Save
         await commandRepository.SaveChangesAsync();
 
         // Return customer
-        var customerAfter = await queryRepository.FindAsync(customer.CustomerId);
+        var customerAfter = await context.FindAsync<Customer>(customer.CustomerId);
         customerAfter.Should().BeEquivalentTo(customer);
     }
 }
