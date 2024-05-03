@@ -27,6 +27,10 @@ public static class ServiceCollectionExtensions
     {
         collection.AddScoped(typeof(ICommandRepository<>), typeof(CommandRepository<>));
         collection.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
+
+        collection.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        collection.AddScoped<IOrderRepository, OrderRepository>();
+        collection.AddScoped<IReservationRepository, ReservationRepository>();
     }
 
     public static void InjectApplication(this IServiceCollection collection)

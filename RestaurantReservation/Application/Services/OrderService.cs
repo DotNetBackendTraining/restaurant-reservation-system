@@ -1,52 +1,37 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Application.DTOs;
 using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Domain.Interfaces.Repositories;
-using RestaurantReservation.Domain.Models;
 
 namespace RestaurantReservation.Application.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly IQueryRepository<Order> _queryRepository;
     private readonly IMapper _mapper;
+    private readonly IOrderRepository _orderRepository;
 
     public OrderService(
-        IQueryRepository<Order> queryRepository,
-        IMapper mapper)
+        IMapper mapper, IOrderRepository orderRepository)
     {
-        _queryRepository = queryRepository;
         _mapper = mapper;
+        _orderRepository = orderRepository;
     }
 
     public IAsyncEnumerable<FullOrderDto> ListOrdersAndMenuItemsAsync(int reservationId)
     {
-        return _queryRepository.GetAll()
-            .Where(o => o.ReservationId == reservationId)
-            .Select(o => new
-            {
-                Order = o,
-                MenuItems = _queryRepository.GetAll()
-                    .Where(o1 => o1.OrderId == o.OrderId)
-                    .SelectMany(o1 => o1.OrderItems)
-                    .Select(oi => oi.MenuItem)
-                    .ToList()
-            })
-            .AsAsyncEnumerable()
-            .Select(pair => new FullOrderDto(
-                _mapper.Map<OrderDto>(pair.Order),
-                pair.MenuItems.Select(mi => _mapper.Map<MenuItemDto>(mi)).ToList()));
+        return _orderRepository
+            .GetAllOrdersAsync(reservationId)
+            .SelectAwait(async order => new FullOrderDto(
+                _mapper.Map<OrderDto>(order),
+                await _orderRepository
+                    .GetAllOrderedMenuItemsAsync(order.OrderId)
+                    .Select(mi => _mapper.Map<MenuItemDto>(mi))
+                    .ToListAsync()));
     }
 
     public IAsyncEnumerable<MenuItemDto> ListOrderedMenuItemsAsync(int reservationId)
     {
-        return _queryRepository.GetAll()
-            .Where(o => o.ReservationId == reservationId)
-            .SelectMany(order => order.OrderItems)
-            .Select(orderItem => orderItem.MenuItem)
-            .Distinct()
-            .AsAsyncEnumerable()
+        return _orderRepository.GetAllOrderedMenuItemsAsync(reservationId)
             .Select(mi => _mapper.Map<MenuItemDto>(mi));
     }
 }
