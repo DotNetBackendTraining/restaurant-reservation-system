@@ -24,5 +24,11 @@ public class RestaurantReservationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.HasDbFunction(typeof(RestaurantReservationDbContext)
+                .GetMethod(nameof(GetTotalRevenueByRestaurant), [typeof(int)])!)
+            .HasName("GetTotalRevenueByRestaurant");
     }
+
+    public decimal GetTotalRevenueByRestaurant(int restaurantId) => throw new NotSupportedException();
 }
