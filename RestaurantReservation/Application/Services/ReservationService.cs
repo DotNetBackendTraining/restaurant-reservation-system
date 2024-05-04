@@ -29,4 +29,10 @@ public class ReservationService : IReservationService
         var reservationDetail = await _reservationRepository.GetReservationDetailAsync(reservationId);
         return _mapper.Map<ReservationDetailDto>(reservationDetail);
     }
+
+    public IAsyncEnumerable<CustomerDto> GetCustomersWithPartySizeGreaterThan(int partySize)
+    {
+        return _reservationRepository.GetCustomersWithPartySizeGreaterThan(partySize)
+            .Select(c => _mapper.Map<CustomerDto>(c));
+    }
 }

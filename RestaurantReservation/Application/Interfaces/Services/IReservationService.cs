@@ -7,4 +7,6 @@ public interface IReservationService
     IAsyncEnumerable<ReservationDto> GetReservationsByCustomerAsync(int customerId);
 
     Task<ReservationDetailDto?> GetReservationDetailAsync(int reservationId);
+
+    IAsyncEnumerable<CustomerDto> GetCustomersWithPartySizeGreaterThan(int partySize);
 }
