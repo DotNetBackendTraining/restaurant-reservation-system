@@ -34,4 +34,9 @@ public class EmployeeService : IEmployeeService
     {
         return await _employeeRepository.CalculateAverageOrderAmountAsync(employeeId);
     }
+
+    public async Task<decimal> GetTotalRevenueByRestaurant(int restaurantId)
+    {
+        return await _employeeRepository.GetTotalRevenueByRestaurant(restaurantId);
+    }
 }

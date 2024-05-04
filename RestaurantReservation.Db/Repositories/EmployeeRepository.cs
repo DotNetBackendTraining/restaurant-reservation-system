@@ -32,4 +32,12 @@ public class EmployeeRepository : IEmployeeRepository
             .SelectMany(e => e.Orders)
             .AverageAsync(o => o.TotalAmount);
     }
+
+    public async Task<decimal> GetTotalRevenueByRestaurant(int restaurantId)
+    {
+        return await _context.Restaurants
+            .Where(r => r.RestaurantId == restaurantId)
+            .Select(r => _context.GetTotalRevenueByRestaurant(r.RestaurantId))
+            .FirstAsync();
+    }
 }
