@@ -18,10 +18,13 @@ public class ReservationService : IReservationService
         _reservationRepository = reservationRepository;
     }
 
-    public IAsyncEnumerable<ReservationDto> GetReservationsByCustomerAsync(int customerId)
+    public async Task<IEnumerable<ReservationDto>> GetReservationsByCustomerAsync(int customerId)
     {
-        return _reservationRepository.GetAllReservationsByCustomerAsync(customerId)
-            .Select(r => _mapper.Map<ReservationDto>(r));
+        var reservations = await _reservationRepository
+            .GetAllReservationsByCustomerAsync(customerId)
+            .ToListAsync();
+
+        return reservations.Select(r => _mapper.Map<ReservationDto>(r));
     }
 
     public async Task<ReservationDetailDto?> GetReservationDetailAsync(int reservationId)
@@ -30,9 +33,12 @@ public class ReservationService : IReservationService
         return _mapper.Map<ReservationDetailDto>(reservationDetail);
     }
 
-    public IAsyncEnumerable<CustomerDto> GetCustomersWithPartySizeGreaterThan(int partySize)
+    public async Task<IEnumerable<CustomerDto>> GetCustomersWithPartySizeGreaterThan(int partySize)
     {
-        return _reservationRepository.GetCustomersWithPartySizeGreaterThan(partySize)
-            .Select(c => _mapper.Map<CustomerDto>(c));
+        var customers = await _reservationRepository
+            .GetCustomersWithPartySizeGreaterThan(partySize)
+            .ToListAsync();
+
+        return customers.Select(c => _mapper.Map<CustomerDto>(c));
     }
 }

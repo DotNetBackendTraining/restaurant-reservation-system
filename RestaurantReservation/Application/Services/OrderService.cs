@@ -17,17 +17,22 @@ public class OrderService : IOrderService
         _orderRepository = orderRepository;
     }
 
-    public IAsyncEnumerable<FullOrderDto> ListOrdersAndMenuItemsAsync(int reservationId)
+    public async Task<IEnumerable<FullOrderDto>> ListOrdersAndMenuItemsAsync(int reservationId)
     {
-        return _orderRepository.GetAllOrdersAndMenuItemsAsync(reservationId)
-            .Select(pair => new FullOrderDto(
-                _mapper.Map<OrderDto>(pair.Item1),
-                pair.Item2.Select(mi => _mapper.Map<MenuItemDto>(mi)).ToList()));
+        var pairs = await _orderRepository.GetAllOrdersAndMenuItemsAsync(reservationId)
+            .ToListAsync();
+
+        return pairs.Select(pair => new FullOrderDto(
+            _mapper.Map<OrderDto>(pair.Item1),
+            pair.Item2.Select(mi => _mapper.Map<MenuItemDto>(mi)).ToList()));
     }
 
-    public IAsyncEnumerable<MenuItemDto> ListOrderedMenuItemsAsync(int reservationId)
+    public async Task<IEnumerable<MenuItemDto>> ListOrderedMenuItemsAsync(int reservationId)
     {
-        return _orderRepository.GetAllOrderedMenuItemsAsync(reservationId)
-            .Select(mi => _mapper.Map<MenuItemDto>(mi));
+        var menuItems = await _orderRepository
+            .GetAllOrderedMenuItemsAsync(reservationId)
+            .ToListAsync();
+
+        return menuItems.Select(mi => _mapper.Map<MenuItemDto>(mi));
     }
 }

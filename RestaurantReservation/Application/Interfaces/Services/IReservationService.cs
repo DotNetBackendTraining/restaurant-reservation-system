@@ -4,9 +4,9 @@ namespace RestaurantReservation.Application.Interfaces.Services;
 
 public interface IReservationService
 {
-    IAsyncEnumerable<ReservationDto> GetReservationsByCustomerAsync(int customerId);
+    Task<IEnumerable<ReservationDto>> GetReservationsByCustomerAsync(int customerId);
 
     Task<ReservationDetailDto?> GetReservationDetailAsync(int reservationId);
 
-    IAsyncEnumerable<CustomerDto> GetCustomersWithPartySizeGreaterThan(int partySize);
+    Task<IEnumerable<CustomerDto>> GetCustomersWithPartySizeGreaterThan(int partySize);
 }

@@ -4,7 +4,7 @@ namespace RestaurantReservation.Application.Interfaces.Services;
 
 public interface IOrderService
 {
-    IAsyncEnumerable<FullOrderDto> ListOrdersAndMenuItemsAsync(int reservationId);
+    Task<IEnumerable<FullOrderDto>> ListOrdersAndMenuItemsAsync(int reservationId);
 
-    IAsyncEnumerable<MenuItemDto> ListOrderedMenuItemsAsync(int reservationId);
+    Task<IEnumerable<MenuItemDto>> ListOrderedMenuItemsAsync(int reservationId);
 }

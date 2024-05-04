@@ -18,10 +18,13 @@ public class EmployeeService : IEmployeeService
         _employeeRepository = employeeRepository;
     }
 
-    public IAsyncEnumerable<EmployeeDto> GetAllManagersAsync()
+    public async Task<IEnumerable<EmployeeDto>> GetAllManagersAsync()
     {
-        return _employeeRepository.GetAllManagersAsync()
-            .Select(e => _mapper.Map<EmployeeDto>(e));
+        var managers = await _employeeRepository
+            .GetAllManagersAsync()
+            .ToListAsync();
+
+        return managers.Select(e => _mapper.Map<EmployeeDto>(e));
     }
 
     public async Task<EmployeeRestaurantDetailDto> GetEmployeeRestaurantDetailAsync(int employeeId)

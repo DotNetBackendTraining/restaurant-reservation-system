@@ -18,7 +18,7 @@ public class ReservationServiceFunctionalTests : IClassFixture<FullTestSetupFixt
     [Fact]
     public async Task GetReservationsByCustomerAsync_ShouldReturnCorrectData()
     {
-        var reservations = await _reservationController.GetReservationsByCustomerAsync(1).ToListAsync();
+        var reservations = (await _reservationController.GetReservationsByCustomerAsync(1)).ToList();
         reservations.Count.Should().Be(1);
         reservations[0].Should().BeEquivalentTo(ModelsData.Reservations().ToList()[0], options => options
             .ExcludingMissingMembers());

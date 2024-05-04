@@ -4,7 +4,7 @@ namespace RestaurantReservation.Application.Interfaces.Services;
 
 public interface IEmployeeService
 {
-    IAsyncEnumerable<EmployeeDto> GetAllManagersAsync();
+    Task<IEnumerable<EmployeeDto>> GetAllManagersAsync();
 
     Task<EmployeeRestaurantDetailDto> GetEmployeeRestaurantDetailAsync(int employeeId);
 

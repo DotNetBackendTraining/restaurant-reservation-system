@@ -18,7 +18,7 @@ public class OrderServiceFunctionalTests : IClassFixture<FullTestSetupFixture>
     [Fact]
     public async Task ListOrdersAndMenuItemsAsync_ShouldReturnCorrectData()
     {
-        var pairs = await _orderService.ListOrdersAndMenuItemsAsync(1).ToListAsync();
+        var pairs = (await _orderService.ListOrdersAndMenuItemsAsync(1)).ToList();
         pairs.Count.Should().Be(1);
 
         var (order, menuItems) = pairs[0];
@@ -33,7 +33,7 @@ public class OrderServiceFunctionalTests : IClassFixture<FullTestSetupFixture>
     [Fact]
     public async Task ListOrderedMenuItemsAsync_ShouldReturnCorrectData()
     {
-        var menuItems = await _orderService.ListOrderedMenuItemsAsync(1).ToListAsync();
+        var menuItems = (await _orderService.ListOrderedMenuItemsAsync(1)).ToList();
         menuItems.Count.Should().Be(1);
         menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0], options => options
             .ExcludingMissingMembers());

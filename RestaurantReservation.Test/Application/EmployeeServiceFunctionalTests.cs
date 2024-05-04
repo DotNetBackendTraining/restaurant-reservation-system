@@ -18,7 +18,7 @@ public class EmployeeServiceFunctionalTests : IClassFixture<FullTestSetupFixture
     [Fact]
     public async Task GetAllManagersAsync_ShouldReturnCorrectData()
     {
-        var managers = await _employeeService.GetAllManagersAsync().ToListAsync();
+        var managers = (await _employeeService.GetAllManagersAsync()).ToList();
         managers.Count.Should().Be(1);
         managers[0].Should().BeEquivalentTo(ModelsData.Employees().ToList()[0], options => options
             .ExcludingMissingMembers());
