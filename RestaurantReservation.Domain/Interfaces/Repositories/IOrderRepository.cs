@@ -4,6 +4,6 @@ namespace RestaurantReservation.Domain.Interfaces.Repositories;
 
 public interface IOrderRepository
 {
-    IAsyncEnumerable<Order> GetAllOrdersAsync(int reservationId);
+    IAsyncEnumerable<(Order, IList<MenuItem>)> GetAllOrdersAndMenuItemsAsync(int reservationId);
     IAsyncEnumerable<MenuItem> GetAllOrderedMenuItemsAsync(int orderId);
 }

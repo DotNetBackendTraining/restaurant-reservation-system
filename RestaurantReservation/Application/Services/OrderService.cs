@@ -19,14 +19,10 @@ public class OrderService : IOrderService
 
     public IAsyncEnumerable<FullOrderDto> ListOrdersAndMenuItemsAsync(int reservationId)
     {
-        return _orderRepository
-            .GetAllOrdersAsync(reservationId)
-            .SelectAwait(async order => new FullOrderDto(
-                _mapper.Map<OrderDto>(order),
-                await _orderRepository
-                    .GetAllOrderedMenuItemsAsync(order.OrderId)
-                    .Select(mi => _mapper.Map<MenuItemDto>(mi))
-                    .ToListAsync()));
+        return _orderRepository.GetAllOrdersAndMenuItemsAsync(reservationId)
+            .Select(pair => new FullOrderDto(
+                _mapper.Map<OrderDto>(pair.Item1),
+                pair.Item2.Select(mi => _mapper.Map<MenuItemDto>(mi)).ToList()));
     }
 
     public IAsyncEnumerable<MenuItemDto> ListOrderedMenuItemsAsync(int reservationId)
