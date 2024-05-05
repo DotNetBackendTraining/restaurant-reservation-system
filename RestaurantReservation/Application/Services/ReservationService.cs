@@ -30,7 +30,9 @@ public class ReservationService : IReservationService
     public async Task<ReservationDetailDto?> GetReservationDetailAsync(int reservationId)
     {
         var reservationDetail = await _reservationRepository.GetReservationDetailAsync(reservationId);
-        return _mapper.Map<ReservationDetailDto>(reservationDetail);
+        return reservationDetail is null
+            ? null
+            : _mapper.Map<ReservationDetailDto>(reservationDetail);
     }
 
     public async Task<IEnumerable<CustomerDto>> GetCustomersWithPartySizeGreaterThan(int partySize)

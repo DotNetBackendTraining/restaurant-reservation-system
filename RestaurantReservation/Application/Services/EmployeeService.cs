@@ -27,10 +27,12 @@ public class EmployeeService : IEmployeeService
         return managers.Select(e => _mapper.Map<EmployeeDto>(e));
     }
 
-    public async Task<EmployeeRestaurantDetailDto> GetEmployeeRestaurantDetailAsync(int employeeId)
+    public async Task<EmployeeRestaurantDetailDto?> GetEmployeeRestaurantDetailAsync(int employeeId)
     {
         var employeeRestaurantDetail = await _employeeRepository.GetEmployeeRestaurantDetailAsync(employeeId);
-        return _mapper.Map<EmployeeRestaurantDetailDto>(employeeRestaurantDetail);
+        return employeeRestaurantDetail is null
+            ? null
+            : _mapper.Map<EmployeeRestaurantDetailDto>(employeeRestaurantDetail);
     }
 
     public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
