@@ -1,6 +1,6 @@
 namespace RestaurantReservation.Presentation.Interfaces;
 
-public interface ICudController<in TEntity>
+public interface ICudInterface<in TEntity>
 {
     Task Create(TEntity entity);
     Task Update(TEntity entity);

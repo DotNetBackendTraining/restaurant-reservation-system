@@ -5,7 +5,7 @@ namespace RestaurantReservation.Presentation.Interfaces;
 /// <summary>
 /// General controller for miscellaneous tasks that do not fit into a specific category.
 /// </summary>
-public interface IGenericController
+public interface IGenericInterface
 {
     /// <summary>
     /// This method retrieves all employees who hold the position of "Manager."
