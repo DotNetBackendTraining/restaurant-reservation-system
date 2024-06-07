@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation", "RestaurantReservation\RestaurantReservation.csproj", "{0D8C6BB4-A565-4B71-9E21-6E76FA8A87E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation.App", "RestaurantReservation.App\RestaurantReservation.App.csproj", "{0D8C6BB4-A565-4B71-9E21-6E76FA8A87E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantReservation.Db", "RestaurantReservation.Db\RestaurantReservation.Db.csproj", "{1FB09F68-7EBE-4217-A635-825B25B4A966}"
 EndProject

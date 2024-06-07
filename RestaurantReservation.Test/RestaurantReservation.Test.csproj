@@ -28,7 +28,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RestaurantReservation.Db\RestaurantReservation.Db.csproj" />
-      <ProjectReference Include="..\RestaurantReservation\RestaurantReservation.csproj" />
+      <ProjectReference Include="..\RestaurantReservation.App\RestaurantReservation.App.csproj" />
     </ItemGroup>
 
 </Project>

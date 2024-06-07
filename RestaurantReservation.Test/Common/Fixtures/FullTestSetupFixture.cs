@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using RestaurantReservation.App.Configuration;
 using RestaurantReservation.Configuration;
 using RestaurantReservation.Configuration.Db;
 
