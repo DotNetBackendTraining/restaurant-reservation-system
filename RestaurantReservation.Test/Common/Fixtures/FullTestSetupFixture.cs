@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.App.Configuration;
-using RestaurantReservation.Configuration;
 using RestaurantReservation.Configuration.Db;
 
 namespace RestaurantReservation.Test.Common.Fixtures;
@@ -19,7 +18,6 @@ public class FullTestSetupFixture : IDisposable
         serviceCollection.InjectDatabase();
         serviceCollection.InjectDomain();
         serviceCollection.InjectApplication();
-        serviceCollection.InjectPresentation();
         ServiceProvider = serviceCollection.BuildServiceProvider();
     }
 

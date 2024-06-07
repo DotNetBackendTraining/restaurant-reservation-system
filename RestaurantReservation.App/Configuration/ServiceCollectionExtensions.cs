@@ -39,7 +39,14 @@ public static class ServiceCollectionExtensions
         collection.AddAutoMapper(Assembly.GetExecutingAssembly());
     }
 
-    public static void InjectPresentation(this IServiceCollection collection)
+    /// <summary>
+    /// Use this to inject all application services at once.
+    /// </summary>
+    public static void AddApplicationServices(this IServiceCollection collection, IConfiguration databaseConfiguration)
     {
+        collection.InjectConfiguration(databaseConfiguration);
+        collection.InjectDatabase();
+        collection.InjectDomain();
+        collection.InjectApplication();
     }
 }
