@@ -8,7 +8,7 @@ public interface IEmployeeService
 
     Task<EmployeeRestaurantDetailDto?> GetEmployeeRestaurantDetailAsync(int employeeId);
 
-    Task<double> CalculateAverageOrderAmountAsync(int employeeId);
+    Task<double?> CalculateAverageOrderAmountAsync(int employeeId);
 
-    Task<decimal> GetTotalRevenueByRestaurant(int restaurantId);
+    Task<decimal?> GetTotalRevenueByRestaurant(int restaurantId);
 }

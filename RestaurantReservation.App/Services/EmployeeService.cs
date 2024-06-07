@@ -35,13 +35,27 @@ public class EmployeeService : IEmployeeService
             : _mapper.Map<EmployeeRestaurantDetailDto>(employeeRestaurantDetail);
     }
 
-    public async Task<double> CalculateAverageOrderAmountAsync(int employeeId)
+    public async Task<double?> CalculateAverageOrderAmountAsync(int employeeId)
     {
-        return await _employeeRepository.CalculateAverageOrderAmountAsync(employeeId);
+        try
+        {
+            return await _employeeRepository.CalculateAverageOrderAmountAsync(employeeId);
+        }
+        catch (InvalidOperationException)
+        {
+            return null;
+        }
     }
 
-    public async Task<decimal> GetTotalRevenueByRestaurant(int restaurantId)
+    public async Task<decimal?> GetTotalRevenueByRestaurant(int restaurantId)
     {
-        return await _employeeRepository.GetTotalRevenueByRestaurant(restaurantId);
+        try
+        {
+            return await _employeeRepository.GetTotalRevenueByRestaurant(restaurantId);
+        }
+        catch (InvalidOperationException)
+        {
+            return null;
+        }
     }
 }
