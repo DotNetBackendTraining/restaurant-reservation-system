@@ -1,11 +1,13 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.App.Configuration.Db;
+using RestaurantReservation.App.DTOs;
 using RestaurantReservation.App.Interfaces.Services;
 using RestaurantReservation.App.Services;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Repositories;
 using RestaurantReservation.Domain.Interfaces.Repositories;
+using RestaurantReservation.Domain.Models;
 
 namespace RestaurantReservation.App.Configuration;
 
@@ -34,6 +36,12 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<IEmployeeService, EmployeeService>();
         collection.AddScoped<IReservationService, ReservationService>();
         collection.AddScoped<IOrderService, OrderService>();
+
+        collection.AddScoped<ICudService<CustomerDto>, CudService<CustomerDto, Customer>>();
+        collection.AddScoped<ICudService<EmployeeDto>, CudService<EmployeeDto, Employee>>();
+        collection.AddScoped<ICudService<MenuItemDto>, CudService<MenuItemDto, MenuItem>>();
+        collection.AddScoped<ICudService<OrderDto>, CudService<OrderDto, Order>>();
+        collection.AddScoped<ICudService<ReservationDto>, CudService<ReservationDto, Reservation>>();
 
         collection.AddAutoMapper(Assembly.GetExecutingAssembly());
     }

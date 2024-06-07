@@ -1,9 +1,9 @@
 namespace RestaurantReservation.App.Interfaces.Services;
 
-public interface ICudService<in TEntity>
-    where TEntity : class
+public interface ICudService<in TDto>
+    where TDto : class
 {
-    Task CreateAsync(TEntity entity);
-    Task UpdateAsync(TEntity entity);
-    Task DeleteAsync(TEntity entity);
+    Task CreateAsync(TDto entity);
+    Task UpdateAsync(TDto entity);
+    Task DeleteAsync(TDto entity);
 }
