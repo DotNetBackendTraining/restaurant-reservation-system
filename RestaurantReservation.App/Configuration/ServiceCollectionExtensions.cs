@@ -1,9 +1,9 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RestaurantReservation.App.Configuration.Db;
 using RestaurantReservation.App.Interfaces.Services;
 using RestaurantReservation.App.Services;
-using RestaurantReservation.Configuration.Db;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Repositories;
 using RestaurantReservation.Domain.Interfaces.Repositories;

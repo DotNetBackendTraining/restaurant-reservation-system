@@ -1,8 +1,7 @@
 using FluentAssertions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Configuration;
-using RestaurantReservation.Configuration.Db;
+using RestaurantReservation.App.Configuration.Db;
 using RestaurantReservation.Db.Repositories;
 using RestaurantReservation.Domain.Models;
 using RestaurantReservation.Test.Common;

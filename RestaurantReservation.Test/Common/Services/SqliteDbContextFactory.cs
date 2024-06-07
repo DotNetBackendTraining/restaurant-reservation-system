@@ -1,7 +1,6 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Configuration;
-using RestaurantReservation.Configuration.Db;
+using RestaurantReservation.App.Configuration.Db;
 using RestaurantReservation.Db;
 
 namespace RestaurantReservation.Test.Common.Services;

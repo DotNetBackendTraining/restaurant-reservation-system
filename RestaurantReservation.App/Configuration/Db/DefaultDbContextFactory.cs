@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RestaurantReservation.Db;
 
-namespace RestaurantReservation.Configuration.Db;
+namespace RestaurantReservation.App.Configuration.Db;
 
 public class DefaultDbContextFactory : IDbContextFactory
 {
