@@ -1,6 +1,6 @@
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using RestaurantReservation.App.Configuration.Db;
 using RestaurantReservation.App.Interfaces.Services;
 using RestaurantReservation.App.Services;
@@ -12,9 +12,13 @@ namespace RestaurantReservation.App.Configuration;
 
 public static class ServiceCollectionExtensions
 {
-    public static void InjectConfiguration(this IServiceCollection collection, IConfiguration databaseConfiguration)
+    public static void InjectDatabaseConfiguration(this IServiceCollection collection)
     {
-        collection.AddSingleton<IDbContextFactory>(_ => new DefaultDbContextFactory(databaseConfiguration));
+        collection.AddSingleton<IDbContextFactory>(p =>
+        {
+            var settings = p.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+            return new DefaultDbContextFactory(settings);
+        });
     }
 
     public static void InjectDatabase(this IServiceCollection collection)
@@ -42,9 +46,9 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Use this to inject all application services at once.
     /// </summary>
-    public static void AddApplicationServices(this IServiceCollection collection, IConfiguration databaseConfiguration)
+    public static void AddApplicationServices(this IServiceCollection collection)
     {
-        collection.InjectConfiguration(databaseConfiguration);
+        collection.InjectDatabaseConfiguration();
         collection.InjectDatabase();
         collection.InjectDomain();
         collection.InjectApplication();

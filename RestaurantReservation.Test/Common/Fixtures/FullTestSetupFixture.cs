@@ -14,14 +14,14 @@ public class FullTestSetupFixture : IDisposable
     public FullTestSetupFixture()
     {
         var serviceCollection = new ServiceCollection();
-        InjectConfiguration(serviceCollection); // Test configuration
+        InjectDatabaseConfiguration(serviceCollection);
         serviceCollection.InjectDatabase();
         serviceCollection.InjectDomain();
         serviceCollection.InjectApplication();
         ServiceProvider = serviceCollection.BuildServiceProvider();
     }
 
-    private void InjectConfiguration(IServiceCollection serviceCollection)
+    private void InjectDatabaseConfiguration(IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<DatabaseFixture>();
         serviceCollection.AddSingleton<IDbContextFactory>(p =>
