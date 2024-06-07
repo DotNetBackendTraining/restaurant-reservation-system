@@ -2,6 +2,11 @@
 
 [![.NET](https://github.com/DotNetBackendTraining/restaurant-reservation-system/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/DotNetBackendTraining/restaurant-reservation-system/actions/workflows/build-and-test.yml)
 
+## Running the application
+
+- Use `docker-compose.migrate.yml` to update the database.
+- Then use `docker-compose.yml` to run the application.
+
 ## Before you start
 
 - Use .NET Core 5.0+
@@ -53,7 +58,8 @@ the subsequent question.
        application.
 13. Stored Procedures:
     1. Design a stored procedure for
-       **`Finding all customers who have made reservations with a party size greater than a certain value`** using Entity
+       **`Finding all customers who have made reservations with a party size greater than a certain value`** using
+       Entity
        Framework Core migrations.
     2. Develop a method in your RestaurantReservation.Db project to execute the stored procedure.
 14. Create a repository class for each entity and call it: **`{EntityName}Repository.cs`**, and move related methods
