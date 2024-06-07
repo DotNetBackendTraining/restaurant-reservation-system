@@ -1,4 +1,4 @@
-namespace RestaurantReservation.Application.DTOs;
+namespace RestaurantReservation.DTOs;
 
 public record OrderDto(
     int OrderId,

@@ -1,7 +1,7 @@
-using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Domain.Interfaces.Repositories;
+using RestaurantReservation.Interfaces.Services;
 
-namespace RestaurantReservation.Application.Services;
+namespace RestaurantReservation.Services;
 
 public class CudService<TEntity> : ICudService<TEntity>
     where TEntity : class

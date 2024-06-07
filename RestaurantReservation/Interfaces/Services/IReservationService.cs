@@ -1,6 +1,6 @@
-using RestaurantReservation.Application.DTOs;
+using RestaurantReservation.DTOs;
 
-namespace RestaurantReservation.Application.Interfaces.Services;
+namespace RestaurantReservation.Interfaces.Services;
 
 public interface IReservationService
 {

@@ -1,8 +1,8 @@
 using AutoMapper;
-using RestaurantReservation.Application.DTOs;
 using RestaurantReservation.Domain.Models;
+using RestaurantReservation.DTOs;
 
-namespace RestaurantReservation.Application.Profiles;
+namespace RestaurantReservation.Profiles;
 
 public class CustomerProfile : Profile
 {

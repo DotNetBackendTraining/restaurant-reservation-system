@@ -1,9 +1,9 @@
 using AutoMapper;
-using RestaurantReservation.Application.DTOs;
-using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Domain.Interfaces.Repositories;
+using RestaurantReservation.DTOs;
+using RestaurantReservation.Interfaces.Services;
 
-namespace RestaurantReservation.Application.Services;
+namespace RestaurantReservation.Services;
 
 public class EmployeeService : IEmployeeService
 {

@@ -1,4 +1,4 @@
-namespace RestaurantReservation.Application.Interfaces.Services;
+namespace RestaurantReservation.Interfaces.Services;
 
 public interface ICudService<in TEntity>
     where TEntity : class
