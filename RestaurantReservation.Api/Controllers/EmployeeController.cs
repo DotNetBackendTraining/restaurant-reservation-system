@@ -15,6 +15,18 @@ public class EmployeeController : ControllerBase
         _employeeService = employeeService;
     }
 
+    [HttpGet("{employeeId:int}")]
+    public async Task<ActionResult<EmployeeDto>> GetEmployee(int employeeId)
+    {
+        var employee = await _employeeService.GetEmployee(employeeId);
+        if (employee == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(employee);
+    }
+
     [HttpGet("managers")]
     public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetAllManagers()
     {

@@ -18,6 +18,12 @@ public class EmployeeService : IEmployeeService
         _employeeRepository = employeeRepository;
     }
 
+    public async Task<EmployeeDto?> GetEmployee(int employeeId)
+    {
+        var employee = await _employeeRepository.GetEmployee(employeeId);
+        return _mapper.Map<EmployeeDto>(employee);
+    }
+
     public async Task<IEnumerable<EmployeeDto>> GetAllManagersAsync()
     {
         var managers = await _employeeRepository

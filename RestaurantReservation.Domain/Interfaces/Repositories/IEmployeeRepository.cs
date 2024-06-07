@@ -4,6 +4,8 @@ namespace RestaurantReservation.Domain.Interfaces.Repositories;
 
 public interface IEmployeeRepository
 {
+    Task<Employee?> GetEmployee(int employeeId);
+
     IAsyncEnumerable<Employee> GetAllManagersAsync();
 
     Task<EmployeeRestaurantDetail?> GetEmployeeRestaurantDetailAsync(int employeeId);

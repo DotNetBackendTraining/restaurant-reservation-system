@@ -13,6 +13,11 @@ public class EmployeeRepository : IEmployeeRepository
         _context = context;
     }
 
+    public async Task<Employee?> GetEmployee(int employeeId)
+    {
+        return await _context.Employees.FindAsync(employeeId);
+    }
+
     public IAsyncEnumerable<Employee> GetAllManagersAsync()
     {
         return _context.Employees
