@@ -1,0 +1,11 @@
+﻿services:
+  restaurant-reservation.api:
+    image: restaurant-reservation.api
+    build:
+      context: .
+      dockerfile: RestaurantReservation.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5056:8080"
+      - "7279:8080"
