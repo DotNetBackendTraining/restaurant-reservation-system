@@ -3,17 +3,18 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using RestaurantReservation.Db;
 
-namespace RestaurantReservation.App.Tools;
+namespace RestaurantReservation.Migrate.Tools;
 
 public class RestaurantReservationDbContextFactory : IDesignTimeDbContextFactory<RestaurantReservationDbContext>
 {
     public RestaurantReservationDbContext CreateDbContext(string[] args)
     {
-        var configurationRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-        var connectionString = configurationRoot.GetSection("Database").GetConnectionString("SQLServerConnection");
+        var config = new ConfigurationBuilder()
+            .AddEnvironmentVariables()
+            .Build();
 
         var options = new DbContextOptionsBuilder()
-            .UseSqlServer(connectionString)
+            .UseSqlServer(config.GetSection("DatabaseSettings")["ConnectionString"])
             .Options;
 
         return new RestaurantReservationDbContext(options);

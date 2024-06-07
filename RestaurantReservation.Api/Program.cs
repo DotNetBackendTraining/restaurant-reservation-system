@@ -1,7 +1,14 @@
+using RestaurantReservation.App.Configuration;
+using RestaurantReservation.App.Configuration.Db;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// Add settings
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddApplicationServices();
+builder.Services.AddControllersWithViews(options => { });
 
 var app = builder.Build();
 

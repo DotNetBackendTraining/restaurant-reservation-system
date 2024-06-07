@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.App.Configuration;
-using RestaurantReservation.App.Configuration.Db;
+using RestaurantReservation.Db;
 
 namespace RestaurantReservation.Test.Common.Fixtures;
 

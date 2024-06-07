@@ -1,5 +1,5 @@
 using Microsoft.Data.Sqlite;
-using RestaurantReservation.App.Configuration.Db;
+using RestaurantReservation.Db;
 using RestaurantReservation.Test.Common.Services;
 
 namespace RestaurantReservation.Test.Common.Fixtures;
