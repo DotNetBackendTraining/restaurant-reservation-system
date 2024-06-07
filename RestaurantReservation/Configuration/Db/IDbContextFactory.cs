@@ -1,6 +1,6 @@
 using RestaurantReservation.Db;
 
-namespace RestaurantReservation.Presentation.Interfaces;
+namespace RestaurantReservation.Configuration.Db;
 
 public interface IDbContextFactory
 {

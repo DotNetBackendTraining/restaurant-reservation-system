@@ -3,13 +3,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Application.Interfaces.Services;
 using RestaurantReservation.Application.Services;
+using RestaurantReservation.Configuration.Db;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Repositories;
 using RestaurantReservation.Domain.Interfaces.Repositories;
-using RestaurantReservation.Presentation.Interfaces;
-using RestaurantReservation.Presentation.Services;
 
-namespace RestaurantReservation.Presentation.Extensions;
+namespace RestaurantReservation.Configuration;
 
 public static class ServiceCollectionExtensions
 {

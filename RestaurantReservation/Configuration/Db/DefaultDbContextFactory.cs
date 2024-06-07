@@ -2,9 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RestaurantReservation.Db;
-using RestaurantReservation.Presentation.Interfaces;
 
-namespace RestaurantReservation.Presentation.Services;
+namespace RestaurantReservation.Configuration.Db;
 
 public class DefaultDbContextFactory : IDbContextFactory
 {
