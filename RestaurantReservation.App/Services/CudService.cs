@@ -22,21 +22,23 @@ public class CudService<TDto, TEntity> : ICudService<TDto>
         _commandRepository = commandRepository;
     }
 
-    public async Task CreateAsync(TDto entity)
+    public async Task<TDto> CreateAsync(TDto dto)
     {
-        _commandRepository.Add(_mapper.Map<TEntity>(entity));
+        var entity = _mapper.Map<TEntity>(dto);
+        _commandRepository.Add(entity);
+        await _commandRepository.SaveChangesAsync();
+        return _mapper.Map<TDto>(entity);
+    }
+
+    public async Task UpdateAsync(TDto dto)
+    {
+        _commandRepository.Update(_mapper.Map<TEntity>(dto));
         await _commandRepository.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(TDto entity)
+    public async Task DeleteAsync(TDto dto)
     {
-        _commandRepository.Update(_mapper.Map<TEntity>(entity));
-        await _commandRepository.SaveChangesAsync();
-    }
-
-    public async Task DeleteAsync(TDto entity)
-    {
-        _commandRepository.Delete(_mapper.Map<TEntity>(entity));
+        _commandRepository.Delete(_mapper.Map<TEntity>(dto));
         await _commandRepository.SaveChangesAsync();
     }
 }
