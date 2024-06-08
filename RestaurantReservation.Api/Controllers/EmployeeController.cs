@@ -9,10 +9,14 @@ namespace RestaurantReservation.Api.Controllers;
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
+    private readonly ICudService<EmployeeDto> _cudService;
 
-    public EmployeeController(IEmployeeService employeeService)
+    public EmployeeController(
+        IEmployeeService employeeService,
+        ICudService<EmployeeDto> cudService)
     {
         _employeeService = employeeService;
+        _cudService = cudService;
     }
 
     [HttpGet("{employeeId:int}")]
@@ -44,5 +48,12 @@ public class EmployeeController : ControllerBase
         }
 
         return Ok(averageOrderAmount);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<EmployeeDto>> CreateEmployee(EmployeeDto employeeDto)
+    {
+        var createdDto = await _cudService.CreateAsync(employeeDto);
+        return CreatedAtAction(nameof(GetEmployee), new { employeeId = createdDto.EmployeeId }, createdDto);
     }
 }
