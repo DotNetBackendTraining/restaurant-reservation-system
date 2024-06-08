@@ -8,7 +8,8 @@ builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("D
 
 // Add services to the container.
 builder.Services.AddApplicationServices();
-builder.Services.AddControllersWithViews(options => { });
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson();
 
 var app = builder.Build();
 
