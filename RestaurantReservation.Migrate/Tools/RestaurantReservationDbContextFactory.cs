@@ -13,7 +13,7 @@ public class RestaurantReservationDbContextFactory : IDesignTimeDbContextFactory
             .AddEnvironmentVariables()
             .Build();
 
-        var options = new DbContextOptionsBuilder()
+        var options = new DbContextOptionsBuilder<RestaurantReservationDbContext>()
             .UseSqlServer(config.GetSection("DatabaseSettings")["ConnectionString"])
             .Options;
 

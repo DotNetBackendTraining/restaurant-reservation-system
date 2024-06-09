@@ -4,21 +4,21 @@ using RestaurantReservation.Db;
 
 namespace RestaurantReservation.App.Configuration.Db;
 
-public class DefaultDbContextFactory : IDbContextFactory
+public class DefaultDbContextFactory : IDbContextFactory<RestaurantReservationDbContext>
 {
-    private readonly DbContextOptions _options;
+    private readonly DbContextOptions<RestaurantReservationDbContext> _options;
 
     public DefaultDbContextFactory(IOptions<DatabaseSettings> options)
     {
         var settings = options.Value;
-        _options = new DbContextOptionsBuilder()
+        _options = new DbContextOptionsBuilder<RestaurantReservationDbContext>()
             .UseSqlServer(settings.ConnectionString)
             .LogTo(Console.WriteLine, settings.LogLevel)
             .EnableSensitiveDataLogging(settings.EnableSensitiveDataLogging)
             .Options;
     }
 
-    public RestaurantReservationDbContext Create()
+    public RestaurantReservationDbContext CreateDbContext()
     {
         return new RestaurantReservationDbContext(_options);
     }

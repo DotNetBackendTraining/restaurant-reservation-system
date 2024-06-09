@@ -1,4 +1,5 @@
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db;
 using RestaurantReservation.Test.Common.Services;
 
@@ -11,7 +12,7 @@ public class DatabaseFixture : IDisposable
 {
     private readonly SqliteConnection _connection;
 
-    public IDbContextFactory ContextFactory { get; }
+    public IDbContextFactory<RestaurantReservationDbContext> ContextFactory { get; }
 
     public DatabaseFixture()
     {

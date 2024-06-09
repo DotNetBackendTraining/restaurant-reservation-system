@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.App.Configuration.Db;
 using RestaurantReservation.App.DTOs;
@@ -13,14 +14,11 @@ namespace RestaurantReservation.App.Configuration;
 
 public static class ServiceCollectionExtensions
 {
-    public static void InjectDatabaseConfiguration(this IServiceCollection collection)
-    {
-        collection.AddSingleton<IDbContextFactory, DefaultDbContextFactory>();
-    }
-
     public static void InjectDatabase(this IServiceCollection collection)
     {
-        collection.AddScoped<RestaurantReservationDbContext>(p => p.GetRequiredService<IDbContextFactory>().Create());
+        collection.AddDbContextFactory<RestaurantReservationDbContext, DefaultDbContextFactory>();
+        collection.AddScoped<RestaurantReservationDbContext>(p =>
+            p.GetRequiredService<IDbContextFactory<RestaurantReservationDbContext>>().CreateDbContext());
     }
 
     public static void InjectDomain(this IServiceCollection collection)
@@ -51,7 +49,6 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static void AddApplicationServices(this IServiceCollection collection)
     {
-        collection.InjectDatabaseConfiguration();
         collection.InjectDatabase();
         collection.InjectDomain();
         collection.InjectApplication();

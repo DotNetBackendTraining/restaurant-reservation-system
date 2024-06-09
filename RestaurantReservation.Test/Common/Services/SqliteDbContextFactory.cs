@@ -7,21 +7,21 @@ namespace RestaurantReservation.Test.Common.Services;
 /// <summary>
 /// Does not control the connection. Open it and close it separately.
 /// </summary>
-public class SqliteDbContextFactory : IDbContextFactory
+public class SqliteDbContextFactory : IDbContextFactory<RestaurantReservationDbContext>
 {
-    private readonly DbContextOptions _options;
+    private readonly DbContextOptions<RestaurantReservationDbContext> _options;
 
     public SqliteDbContextFactory(SqliteConnection connection)
     {
-        _options = new DbContextOptionsBuilder()
+        _options = new DbContextOptionsBuilder<RestaurantReservationDbContext>()
             .UseSqlite(connection)
             .Options;
 
-        using var context = Create();
+        using var context = CreateDbContext();
         context.Database.EnsureCreated();
     }
 
-    public RestaurantReservationDbContext Create()
+    public RestaurantReservationDbContext CreateDbContext()
     {
         return new RestaurantReservationDbContext(_options);
     }

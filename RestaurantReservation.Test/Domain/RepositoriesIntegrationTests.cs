@@ -13,7 +13,7 @@ namespace RestaurantReservation.Test.Domain;
 public class RepositoriesIntegrationTests : IDisposable
 {
     private readonly SqliteConnection _connection;
-    private readonly IDbContextFactory _contextFactory;
+    private readonly IDbContextFactory<RestaurantReservationDbContext> _contextFactory;
 
     public RepositoriesIntegrationTests()
     {
@@ -31,7 +31,7 @@ public class RepositoriesIntegrationTests : IDisposable
     [Theory, CustomAutoData(typeof(DisconnectedCustomerCustomization))]
     public async Task AddAndSaveCustomer_ShouldAddNewCustomerCorrectly(Customer customer)
     {
-        await using var context = _contextFactory.Create();
+        await using var context = await _contextFactory.CreateDbContextAsync();
         var repository = new CommandRepository<Customer>(context);
         customer.CustomerId = 0;
 
@@ -55,7 +55,7 @@ public class RepositoriesIntegrationTests : IDisposable
     [Theory, CustomAutoData(typeof(DisconnectedCustomerCustomization))]
     public async Task AddThenFindCustomer_ShouldReturnNullBeforeSaveAndCustomerAfterSave(Customer customer)
     {
-        await using var context = _contextFactory.Create();
+        await using var context = await _contextFactory.CreateDbContextAsync();
         var commandRepository = new CommandRepository<Customer>(context);
         customer.CustomerId = 0;
 

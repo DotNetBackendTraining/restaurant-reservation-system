@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.App.Configuration;
 using RestaurantReservation.Db;
@@ -14,18 +15,19 @@ public class FullTestSetupFixture : IDisposable
     public FullTestSetupFixture()
     {
         var serviceCollection = new ServiceCollection();
-        InjectDatabaseConfiguration(serviceCollection);
-        serviceCollection.InjectDatabase();
+        InjectDatabase(serviceCollection);
         serviceCollection.InjectDomain();
         serviceCollection.InjectApplication();
         ServiceProvider = serviceCollection.BuildServiceProvider();
     }
 
-    private void InjectDatabaseConfiguration(IServiceCollection serviceCollection)
+    private void InjectDatabase(IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<DatabaseFixture>();
-        serviceCollection.AddSingleton<IDbContextFactory>(p =>
+        serviceCollection.AddSingleton<IDbContextFactory<RestaurantReservationDbContext>>(p =>
             p.GetRequiredService<DatabaseFixture>().ContextFactory);
+        serviceCollection.AddScoped<RestaurantReservationDbContext>(p =>
+            p.GetRequiredService<IDbContextFactory<RestaurantReservationDbContext>>().CreateDbContext());
     }
 
     public void Dispose()
