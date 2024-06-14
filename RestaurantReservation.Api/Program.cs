@@ -14,6 +14,7 @@ builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("D
 // Add services to the container.
 builder.Services.AddApplicationServices();
 builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddProblemDetails();
 
 builder.Services
     .AddFluentValidationAutoValidation()
@@ -60,6 +61,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler();
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
