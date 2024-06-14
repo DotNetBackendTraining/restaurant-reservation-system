@@ -7,6 +7,9 @@ public class EmployeeDtoValidator : AbstractValidator<EmployeeDto>
 {
     public EmployeeDtoValidator()
     {
+        RuleFor(e => e.EmployeeId)
+            .Equal(0)
+            .WithMessage("EmployeeId must not be set");
         RuleFor(e => e.RestaurantId).GreaterThan(0);
         RuleFor(e => e.FirstName)
             .NotEmpty()
