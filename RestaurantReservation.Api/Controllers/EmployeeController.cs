@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.App.DTOs;
 using RestaurantReservation.App.Interfaces.Services;
@@ -6,6 +7,7 @@ namespace RestaurantReservation.Api.Controllers;
 
 [Route("api/employees")]
 [ApiController]
+[Authorize]
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
