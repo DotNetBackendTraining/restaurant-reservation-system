@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\RestaurantReservation.Api.Auth\RestaurantReservation.Api.Auth.csproj" />
       <ProjectReference Include="..\RestaurantReservation.App\RestaurantReservation.App.csproj" />
     </ItemGroup>
 

@@ -1,4 +1,4 @@
-using RestaurantReservation.Api.Settings;
+using RestaurantReservation.Api.Auth.Common;
 using RestaurantReservation.App.Configuration;
 using RestaurantReservation.App.Configuration.Db;
 
@@ -28,7 +28,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
