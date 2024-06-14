@@ -8,6 +8,8 @@ using RestaurantReservation.Api.Auth.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<AdminSettings>(builder.Configuration.GetSection("AdminSettings"));
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JWTToken"));
+
 builder.Services.AddDbContext<UserDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("MongoDbConnection")
@@ -17,6 +19,7 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IUserSeeder, UserSeeder>();
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
