@@ -1,3 +1,4 @@
+using RestaurantReservation.Api.Settings;
 using RestaurantReservation.App.Configuration;
 using RestaurantReservation.App.Configuration.Db;
 
@@ -10,6 +11,7 @@ builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("D
 builder.Services.AddApplicationServices();
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
@@ -26,6 +28,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
