@@ -1,7 +1,10 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using RestaurantReservation.Api.Auth.Common;
 using RestaurantReservation.App.Configuration;
 using RestaurantReservation.App.Configuration.Db;
+using RestaurantReservation.App.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +14,14 @@ builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("D
 // Add services to the container.
 builder.Services.AddApplicationServices();
 builder.Services.AddJwtAuthentication(builder.Configuration);
-builder.Services.AddControllers()
+
+builder.Services
+    .AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters()
+    .AddValidatorsFromAssemblyContaining<EmployeeDtoValidator>();
+
+builder.Services
+    .AddControllers()
     .AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
