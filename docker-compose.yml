@@ -14,6 +14,7 @@
       - "7279:8081"
     depends_on:
       - db
+      - mongo
     networks:
       - restaurant-network
 
@@ -24,9 +25,7 @@
       dockerfile: RestaurantReservation.Api.Auth/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - DatabaseSettings__ConnectionString=Server=db;Database=RestaurantReservationDb;User=sa;Password=YourStrong!Passw0rd;Encrypt=False;
-      - DatabaseSettings__LogLevel=Information
-      - DatabaseSettings__EnableSensitiveDataLogging=false
+      - ConnectionStrings__MongoDbConnection=mongodb://root:example@mongo:27017
     ports:
       - "5241:8080"
       - "7040:8081"
@@ -47,9 +46,44 @@
     networks:
       - restaurant-network
 
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - restaurant-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "7171:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - restaurant-network
+
 networks:
   restaurant-network:
     driver: bridge
 
 volumes:
   dbdata:
+  mongo-data:
