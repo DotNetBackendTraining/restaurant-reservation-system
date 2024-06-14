@@ -11,7 +11,25 @@
       - DatabaseSettings__EnableSensitiveDataLogging=false
     ports:
       - "5056:8080"
-      - "7279:8080"
+      - "7279:8081"
+    depends_on:
+      - db
+    networks:
+      - restaurant-network
+
+  restaurant-reservation.api.auth:
+    image: restaurant-reservation.api.auth
+    build:
+      context: .
+      dockerfile: RestaurantReservation.Api.Auth/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DatabaseSettings__ConnectionString=Server=db;Database=RestaurantReservationDb;User=sa;Password=YourStrong!Passw0rd;Encrypt=False;
+      - DatabaseSettings__LogLevel=Information
+      - DatabaseSettings__EnableSensitiveDataLogging=false
+    ports:
+      - "5241:8080"
+      - "7040:8081"
     depends_on:
       - db
     networks:
