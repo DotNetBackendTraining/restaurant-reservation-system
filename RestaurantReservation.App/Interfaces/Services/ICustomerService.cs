@@ -1,10 +1,17 @@
+using RestaurantReservation.App.Common;
 using RestaurantReservation.App.DTOs;
 
 namespace RestaurantReservation.App.Interfaces.Services;
 
 public interface ICustomerService
 {
-    Task<CustomerDto?> GetCustomerAsync(int customerId);
+    Task<Result<CustomerDto>> CreateAsync(CustomerDto dto);
 
-    Task<IEnumerable<CustomerDto>> GetCustomersWithPartySizeGreaterThanAsync(int partySize);
+    Task<Result> UpdateAsync(CustomerDto dto);
+
+    Task<Result> DeleteAsync(CustomerDto dto);
+
+    Task<Result<CustomerDto>> GetCustomerAsync(int customerId);
+
+    Task<Result<IEnumerable<CustomerDto>>> GetCustomersWithPartySizeGreaterThanAsync(int partySize);
 }
