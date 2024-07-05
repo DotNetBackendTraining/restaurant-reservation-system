@@ -98,4 +98,28 @@ public class ReservationController : ControllerBase
 
         return Ok(result.GetDataOrThrow());
     }
+
+    [HttpGet("{reservationId:int}/orders")]
+    public async Task<ActionResult<ReservationDetailDto>> GetFullOrders(int reservationId)
+    {
+        var result = await _reservationService.ListOrdersAndMenuItemsAsync(reservationId);
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.ErrorMessage);
+        }
+
+        return Ok(result.GetDataOrThrow());
+    }
+
+    [HttpGet("{reservationId:int}/menu-items")]
+    public async Task<ActionResult<ReservationDetailDto>> GetOrderedMenuItems(int reservationId)
+    {
+        var result = await _reservationService.ListOrderedMenuItemsAsync(reservationId);
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.ErrorMessage);
+        }
+
+        return Ok(result.GetDataOrThrow());
+    }
 }
