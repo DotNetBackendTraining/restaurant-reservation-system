@@ -39,7 +39,6 @@ public static class ServiceCollectionExtensions
 
         collection.AddScoped<ICudService<MenuItemDto>, CudService<MenuItemDto, MenuItem>>();
         collection.AddScoped<ICudService<OrderDto>, CudService<OrderDto, Order>>();
-        collection.AddScoped<ICudService<ReservationDto>, CudService<ReservationDto, Reservation>>();
 
         collection.AddAutoMapper(Assembly.GetExecutingAssembly());
     }
