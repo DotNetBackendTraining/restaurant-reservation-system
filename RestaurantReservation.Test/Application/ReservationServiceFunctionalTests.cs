@@ -24,4 +24,34 @@ public class ReservationServiceFunctionalTests : IClassFixture<FullTestSetupFixt
         reservations[0].Should().BeEquivalentTo(ModelsData.Reservations().ToList()[0], options => options
             .ExcludingMissingMembers());
     }
+
+    [Fact]
+    public async Task ListOrdersAndMenuItemsAsync_ShouldReturnCorrectData()
+    {
+        var result = await _reservationController.ListOrdersAndMenuItemsAsync(1);
+        result.IsSuccess.Should().BeTrue();
+
+        var pairs = result.GetDataOrThrow().ToList();
+        pairs.Count.Should().Be(1);
+
+        var (order, menuItems) = pairs[0];
+        order.Should().BeEquivalentTo(ModelsData.Orders().ToList()[0], options => options
+            .ExcludingMissingMembers());
+
+        menuItems.Count.Should().Be(1);
+        menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0], options => options
+            .ExcludingMissingMembers());
+    }
+
+    [Fact]
+    public async Task ListOrderedMenuItemsAsync_ShouldReturnCorrectData()
+    {
+        var result = await _reservationController.ListOrdersAndMenuItemsAsync(1);
+        result.IsSuccess.Should().BeTrue();
+
+        var menuItems = result.GetDataOrThrow().ToList();
+        menuItems.Count.Should().Be(1);
+        menuItems[0].Should().BeEquivalentTo(ModelsData.MenuItems().ToList()[0], options => options
+            .ExcludingMissingMembers());
+    }
 }

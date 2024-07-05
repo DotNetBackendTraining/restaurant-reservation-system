@@ -16,4 +16,8 @@ public interface IReservationService
     Task<Result<IEnumerable<ReservationDto>>> GetReservationsByCustomerAsync(int customerId);
 
     Task<Result<ReservationDetailDto>> GetReservationDetailAsync(int reservationId);
+
+    Task<Result<IEnumerable<FullOrderDto>>> ListOrdersAndMenuItemsAsync(int reservationId);
+
+    Task<Result<IEnumerable<MenuItemDto>>> ListOrderedMenuItemsAsync(int reservationId);
 }

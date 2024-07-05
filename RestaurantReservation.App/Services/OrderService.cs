@@ -22,23 +22,4 @@ public class OrderService : IOrderService
         var order = await _orderRepository.GetOrderAsync(orderId);
         return _mapper.Map<OrderDto>(order);
     }
-
-    public async Task<IEnumerable<FullOrderDto>> ListOrdersAndMenuItemsAsync(int reservationId)
-    {
-        var pairs = await _orderRepository.GetAllOrdersAndMenuItemsAsync(reservationId)
-            .ToListAsync();
-
-        return pairs.Select(pair => new FullOrderDto(
-            _mapper.Map<OrderDto>(pair.Item1),
-            pair.Item2.Select(mi => _mapper.Map<MenuItemDto>(mi)).ToList()));
-    }
-
-    public async Task<IEnumerable<MenuItemDto>> ListOrderedMenuItemsAsync(int reservationId)
-    {
-        var menuItems = await _orderRepository
-            .GetAllOrderedMenuItemsAsync(reservationId)
-            .ToListAsync();
-
-        return menuItems.Select(mi => _mapper.Map<MenuItemDto>(mi));
-    }
 }

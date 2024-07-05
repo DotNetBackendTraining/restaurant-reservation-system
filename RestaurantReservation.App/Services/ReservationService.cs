@@ -12,15 +12,18 @@ public class ReservationService : IReservationService
     private readonly IMapper _mapper;
     private readonly ICommandRepository<Reservation> _commandRepository;
     private readonly IReservationRepository _reservationRepository;
+    private readonly IOrderRepository _orderRepository;
 
     public ReservationService(
         IMapper mapper,
         ICommandRepository<Reservation> commandRepository,
-        IReservationRepository reservationRepository)
+        IReservationRepository reservationRepository,
+        IOrderRepository orderRepository)
     {
         _mapper = mapper;
         _commandRepository = commandRepository;
         _reservationRepository = reservationRepository;
+        _orderRepository = orderRepository;
     }
 
     public async Task<Result<ReservationDto>> CreateAsync(ReservationDto dto)
@@ -82,5 +85,27 @@ public class ReservationService : IReservationService
         return reservationDetail == null
             ? Result<ReservationDetailDto>.Failure("Reservation detail not found")
             : Result<ReservationDetailDto>.Success(_mapper.Map<ReservationDetailDto>(reservationDetail));
+    }
+
+    public async Task<Result<IEnumerable<FullOrderDto>>> ListOrdersAndMenuItemsAsync(int reservationId)
+    {
+        var pairs = await _orderRepository.GetAllOrdersAndMenuItemsAsync(reservationId)
+            .ToListAsync();
+
+        var fullOrderDtos = pairs.Select(pair => new FullOrderDto(
+            _mapper.Map<OrderDto>(pair.Item1),
+            pair.Item2.Select(mi => _mapper.Map<MenuItemDto>(mi)).ToList()));
+
+        return Result<IEnumerable<FullOrderDto>>.Success(fullOrderDtos);
+    }
+
+    public async Task<Result<IEnumerable<MenuItemDto>>> ListOrderedMenuItemsAsync(int reservationId)
+    {
+        var menuItems = await _orderRepository
+            .GetAllOrderedMenuItemsAsync(reservationId)
+            .ToListAsync();
+
+        var menuItemDtos = menuItems.Select(mi => _mapper.Map<MenuItemDto>(mi));
+        return Result<IEnumerable<MenuItemDto>>.Success(menuItemDtos);
     }
 }
