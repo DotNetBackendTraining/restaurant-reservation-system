@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<IEmployeeRepository, EmployeeRepository>();
         collection.AddScoped<IOrderRepository, OrderRepository>();
         collection.AddScoped<IReservationRepository, ReservationRepository>();
+        collection.AddScoped<ICustomerRepository, CustomerRepository>();
     }
 
     public static void InjectApplication(this IServiceCollection collection)
@@ -34,6 +35,7 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<IEmployeeService, EmployeeService>();
         collection.AddScoped<IReservationService, ReservationService>();
         collection.AddScoped<IOrderService, OrderService>();
+        collection.AddScoped<ICustomerService, CustomerService>();
 
         collection.AddScoped<ICudService<CustomerDto>, CudService<CustomerDto, Customer>>();
         collection.AddScoped<ICudService<EmployeeDto>, CudService<EmployeeDto, Employee>>();

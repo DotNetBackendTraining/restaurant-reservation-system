@@ -29,11 +29,4 @@ public class ReservationRepository : IReservationRepository
     {
         return await _context.ReservationDetails.FindAsync(reservationId);
     }
-
-    public IAsyncEnumerable<Customer> GetCustomersWithPartySizeGreaterThan(int partySize)
-    {
-        return _context.Customers
-            .FromSqlInterpolated($"EXEC FindCustomersWithPartySizeGreaterThan @PartySize = {partySize}")
-            .AsAsyncEnumerable();
-    }
 }

@@ -40,13 +40,4 @@ public class ReservationService : IReservationService
             ? null
             : _mapper.Map<ReservationDetailDto>(reservationDetail);
     }
-
-    public async Task<IEnumerable<CustomerDto>> GetCustomersWithPartySizeGreaterThan(int partySize)
-    {
-        var customers = await _reservationRepository
-            .GetCustomersWithPartySizeGreaterThan(partySize)
-            .ToListAsync();
-
-        return customers.Select(c => _mapper.Map<CustomerDto>(c));
-    }
 }
