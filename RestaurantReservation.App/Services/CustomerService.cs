@@ -21,7 +21,7 @@ public class CustomerService : ICustomerService
     public async Task<CustomerDto?> GetCustomerAsync(int customerId)
     {
         var customer = await _customerRepository.GetCustomer(customerId);
-        return _mapper.Map<CustomerDto>(customerId);
+        return _mapper.Map<CustomerDto>(customer);
     }
 
     public async Task<IEnumerable<CustomerDto>> GetCustomersWithPartySizeGreaterThanAsync(int partySize)
