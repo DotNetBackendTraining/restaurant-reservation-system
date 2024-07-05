@@ -11,51 +11,103 @@ namespace RestaurantReservation.Api.Controllers;
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
-    private readonly ICudService<EmployeeDto> _cudService;
 
-    public EmployeeController(
-        IEmployeeService employeeService,
-        ICudService<EmployeeDto> cudService)
+    public EmployeeController(IEmployeeService employeeService)
     {
         _employeeService = employeeService;
-        _cudService = cudService;
     }
 
     [HttpGet("{employeeId:int}")]
     public async Task<ActionResult<EmployeeDto>> GetEmployee(int employeeId)
     {
-        var employee = await _employeeService.GetEmployee(employeeId);
-        if (employee == null)
+        var result = await _employeeService.GetEmployee(employeeId);
+        if (!result.IsSuccess)
         {
-            return NotFound();
+            return NotFound(result.ErrorMessage);
         }
 
-        return Ok(employee);
+        return Ok(result.GetDataOrThrow());
     }
 
     [HttpGet("managers")]
     public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetAllManagers()
     {
-        var managers = await _employeeService.GetAllManagersAsync();
-        return Ok(managers);
+        var result = await _employeeService.GetAllManagersAsync();
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.ErrorMessage);
+        }
+
+        return Ok(result.GetDataOrThrow());
     }
 
     [HttpGet("{employeeId:int}/average-order-amount")]
     public async Task<ActionResult<double>> GetAverageOrderAmount(int employeeId)
     {
-        var averageOrderAmount = await _employeeService.CalculateAverageOrderAmountAsync(employeeId);
-        if (averageOrderAmount == null)
+        var result = await _employeeService.CalculateAverageOrderAmountAsync(employeeId);
+        if (!result.IsSuccess)
         {
-            return NotFound();
+            return NotFound(result.ErrorMessage);
         }
 
-        return Ok(averageOrderAmount);
+        return Ok(result.GetDataOrThrow());
     }
 
     [HttpPost]
     public async Task<ActionResult<EmployeeDto>> CreateEmployee(EmployeeDto employeeDto)
     {
-        var createdDto = await _cudService.CreateAsync(employeeDto);
-        return CreatedAtAction(nameof(GetEmployee), new { employeeId = createdDto.EmployeeId }, createdDto);
+        var result = await _employeeService.CreateAsync(employeeDto);
+        if (!result.IsSuccess)
+        {
+            return Conflict(result.ErrorMessage);
+        }
+
+        return CreatedAtAction(
+            nameof(GetEmployee),
+            new { employeeId = result.GetDataOrThrow().EmployeeId },
+            result.GetDataOrThrow());
+    }
+
+    [HttpPut("{employeeId:int}")]
+    public async Task<IActionResult> UpdateEmployee(int employeeId, EmployeeDto employeeDto)
+    {
+        var updatedDto = employeeDto with { EmployeeId = employeeId };
+        var result = await _employeeService.UpdateAsync(updatedDto);
+        if (!result.IsSuccess)
+        {
+            return Conflict(result.ErrorMessage);
+        }
+
+        return NoContent();
+    }
+
+    [HttpDelete("{employeeId:int}")]
+    public async Task<IActionResult> DeleteEmployee(int employeeId)
+    {
+        var employeeResult = await _employeeService.GetEmployee(employeeId);
+        if (!employeeResult.IsSuccess)
+        {
+            return NotFound(employeeResult.ErrorMessage);
+        }
+
+        var deleteResult = await _employeeService.DeleteAsync(employeeResult.GetDataOrThrow());
+        if (!deleteResult.IsSuccess)
+        {
+            return Conflict(deleteResult.ErrorMessage);
+        }
+
+        return NoContent();
+    }
+
+    [HttpGet("{employeeId:int}/restaurant-detail")]
+    public async Task<ActionResult<EmployeeRestaurantDetailDto>> GetEmployeeRestaurantDetail(int employeeId)
+    {
+        var result = await _employeeService.GetEmployeeRestaurantDetailAsync(employeeId);
+        if (!result.IsSuccess)
+        {
+            return NotFound(result.ErrorMessage);
+        }
+
+        return Ok(result.GetDataOrThrow());
     }
 }

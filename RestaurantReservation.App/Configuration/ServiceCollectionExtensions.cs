@@ -37,7 +37,6 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<IOrderService, OrderService>();
         collection.AddScoped<ICustomerService, CustomerService>();
 
-        collection.AddScoped<ICudService<EmployeeDto>, CudService<EmployeeDto, Employee>>();
         collection.AddScoped<ICudService<MenuItemDto>, CudService<MenuItemDto, MenuItem>>();
         collection.AddScoped<ICudService<OrderDto>, CudService<OrderDto, Order>>();
         collection.AddScoped<ICudService<ReservationDto>, CudService<ReservationDto, Reservation>>();

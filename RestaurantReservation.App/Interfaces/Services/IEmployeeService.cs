@@ -1,16 +1,23 @@
+using RestaurantReservation.App.Common;
 using RestaurantReservation.App.DTOs;
 
 namespace RestaurantReservation.App.Interfaces.Services;
 
 public interface IEmployeeService
 {
-    Task<EmployeeDto?> GetEmployee(int employeeId);
+    Task<Result<EmployeeDto>> CreateAsync(EmployeeDto dto);
 
-    Task<IEnumerable<EmployeeDto>> GetAllManagersAsync();
+    Task<Result> UpdateAsync(EmployeeDto dto);
 
-    Task<EmployeeRestaurantDetailDto?> GetEmployeeRestaurantDetailAsync(int employeeId);
+    Task<Result> DeleteAsync(EmployeeDto dto);
 
-    Task<double?> CalculateAverageOrderAmountAsync(int employeeId);
+    Task<Result<EmployeeDto>> GetEmployee(int employeeId);
 
-    Task<decimal?> GetTotalRevenueByRestaurant(int restaurantId);
+    Task<Result<IEnumerable<EmployeeDto>>> GetAllManagersAsync();
+
+    Task<Result<EmployeeRestaurantDetailDto>> GetEmployeeRestaurantDetailAsync(int employeeId);
+
+    Task<Result<double>> CalculateAverageOrderAmountAsync(int employeeId);
+
+    Task<Result<decimal>> GetTotalRevenueByRestaurant(int restaurantId);
 }

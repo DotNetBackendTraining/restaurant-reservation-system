@@ -1,67 +1,113 @@
 using AutoMapper;
+using RestaurantReservation.App.Common;
 using RestaurantReservation.App.DTOs;
 using RestaurantReservation.App.Interfaces.Services;
 using RestaurantReservation.Domain.Interfaces.Repositories;
+using RestaurantReservation.Domain.Models;
 
 namespace RestaurantReservation.App.Services;
 
 public class EmployeeService : IEmployeeService
 {
     private readonly IMapper _mapper;
+    private readonly ICommandRepository<Employee> _commandRepository;
     private readonly IEmployeeRepository _employeeRepository;
 
     public EmployeeService(
         IMapper mapper,
+        ICommandRepository<Employee> commandRepository,
         IEmployeeRepository employeeRepository)
     {
         _mapper = mapper;
+        _commandRepository = commandRepository;
         _employeeRepository = employeeRepository;
     }
 
-    public async Task<EmployeeDto?> GetEmployee(int employeeId)
+    public async Task<Result<EmployeeDto>> CreateAsync(EmployeeDto dto)
+    {
+        var employee = _mapper.Map<Employee>(dto);
+        _commandRepository.Add(employee);
+        await _commandRepository.SaveChangesAsync();
+        return Result<EmployeeDto>.Success(_mapper.Map<EmployeeDto>(employee));
+    }
+
+    public async Task<Result> UpdateAsync(EmployeeDto dto)
+    {
+        var existingEmployee = await _employeeRepository.GetEmployee(dto.EmployeeId);
+        if (existingEmployee == null)
+        {
+            return Result.Failure("Employee not found");
+        }
+
+        _mapper.Map(dto, existingEmployee);
+        _commandRepository.Update(existingEmployee);
+        await _commandRepository.SaveChangesAsync();
+        return Result.Success();
+    }
+
+    public async Task<Result> DeleteAsync(EmployeeDto dto)
+    {
+        var employee = await _employeeRepository.GetEmployee(dto.EmployeeId);
+        if (employee == null)
+        {
+            return Result.Failure("Employee not found");
+        }
+
+        _commandRepository.Delete(employee);
+        await _commandRepository.SaveChangesAsync();
+        return Result.Success();
+    }
+
+    public async Task<Result<EmployeeDto>> GetEmployee(int employeeId)
     {
         var employee = await _employeeRepository.GetEmployee(employeeId);
-        return _mapper.Map<EmployeeDto>(employee);
+        return employee == null
+            ? Result<EmployeeDto>.Failure("Employee not found")
+            : Result<EmployeeDto>.Success(_mapper.Map<EmployeeDto>(employee));
     }
 
-    public async Task<IEnumerable<EmployeeDto>> GetAllManagersAsync()
+    public async Task<Result<IEnumerable<EmployeeDto>>> GetAllManagersAsync()
     {
-        var managers = await _employeeRepository
-            .GetAllManagersAsync()
-            .ToListAsync();
-
-        return managers.Select(e => _mapper.Map<EmployeeDto>(e));
+        var managers = await _employeeRepository.GetAllManagersAsync().ToListAsync();
+        var managerDtos = managers.Select(e => _mapper.Map<EmployeeDto>(e));
+        return Result<IEnumerable<EmployeeDto>>.Success(managerDtos);
     }
 
-    public async Task<EmployeeRestaurantDetailDto?> GetEmployeeRestaurantDetailAsync(int employeeId)
+    public async Task<Result<EmployeeRestaurantDetailDto>> GetEmployeeRestaurantDetailAsync(int employeeId)
     {
         var employeeRestaurantDetail = await _employeeRepository.GetEmployeeRestaurantDetailAsync(employeeId);
-        return employeeRestaurantDetail is null
-            ? null
-            : _mapper.Map<EmployeeRestaurantDetailDto>(employeeRestaurantDetail);
+        if (employeeRestaurantDetail == null)
+        {
+            return Result<EmployeeRestaurantDetailDto>.Failure("Employee restaurant detail not found");
+        }
+
+        return Result<EmployeeRestaurantDetailDto>.Success(
+            _mapper.Map<EmployeeRestaurantDetailDto>(employeeRestaurantDetail));
     }
 
-    public async Task<double?> CalculateAverageOrderAmountAsync(int employeeId)
+    public async Task<Result<double>> CalculateAverageOrderAmountAsync(int employeeId)
     {
         try
         {
-            return await _employeeRepository.CalculateAverageOrderAmountAsync(employeeId);
+            var averageOrderAmount = await _employeeRepository.CalculateAverageOrderAmountAsync(employeeId);
+            return Result<double>.Success(averageOrderAmount);
         }
         catch (InvalidOperationException)
         {
-            return null;
+            return Result<double>.Failure("Error calculating average order amount");
         }
     }
 
-    public async Task<decimal?> GetTotalRevenueByRestaurant(int restaurantId)
+    public async Task<Result<decimal>> GetTotalRevenueByRestaurant(int restaurantId)
     {
         try
         {
-            return await _employeeRepository.GetTotalRevenueByRestaurant(restaurantId);
+            var totalRevenue = await _employeeRepository.GetTotalRevenueByRestaurant(restaurantId);
+            return Result<decimal>.Success(totalRevenue);
         }
         catch (InvalidOperationException)
         {
-            return null;
+            return Result<decimal>.Failure($"Error calculating total revenue");
         }
     }
 }

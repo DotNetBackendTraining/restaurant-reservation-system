@@ -18,7 +18,9 @@ public class EmployeeServiceFunctionalTests : IClassFixture<FullTestSetupFixture
     [Fact]
     public async Task GetAllManagersAsync_ShouldReturnCorrectData()
     {
-        var managers = (await _employeeService.GetAllManagersAsync()).ToList();
+        var result = await _employeeService.GetAllManagersAsync();
+        result.IsSuccess.Should().BeTrue();
+        var managers = result.GetDataOrThrow().ToList();
         managers.Count.Should().Be(1);
         managers[0].Should().BeEquivalentTo(ModelsData.Employees().ToList()[0], options => options
             .ExcludingMissingMembers());
@@ -27,7 +29,9 @@ public class EmployeeServiceFunctionalTests : IClassFixture<FullTestSetupFixture
     [Fact]
     public async Task CalculateAverageOrderAmount_ShouldReturnCorrectData()
     {
-        var average = await _employeeService.CalculateAverageOrderAmountAsync(1);
+        var result = await _employeeService.CalculateAverageOrderAmountAsync(1);
+        result.IsSuccess.Should().BeTrue();
+        var average = result.GetDataOrThrow();
         average.Should().BeApproximately(45.9, 1e-6);
     }
 }
