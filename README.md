@@ -23,7 +23,7 @@ the subsequent question.
 
 ![DatabaseSchema](assets/InitialDatabaseSchema.png)
 
-## Requirements
+## **Part 1:** Requirements
 
 1. Create a DB named **`RestaurantReservationCore`** (using SSMS).
 2. Create a console application project named **`RestaurantReservation`**.
@@ -65,3 +65,53 @@ the subsequent question.
 14. Create a repository class for each entity and call it: **`{EntityName}Repository.cs`**, and move related methods
     from the previous requirements to the right repository. These repositories should exist in **`Repositories`**
     folder **`RestaurantReservation.Db`**
+
+## **Part 2:** Restaurant Reservation API
+
+### 1. Create Web API Project
+
+- Create a new ASP.NET Core Web API project named **`RestaurantReservation.API`**.
+
+### 2. Setup Dependency
+
+- Add a reference to the **`RestaurantReservation.Db`** project.
+
+### 3. Implement CRUD Operations
+
+- Create API controllers for each entity and implement CRUD operations.
+
+### 4. Implement Reservation Endpoints
+
+- Include CRUD and other specific endpoints for reservations.
+
+### 5. Implement Additional Methods as API Endpoints
+
+- Create endpoints for additional methods, including those related to reservations.
+    - **GET** **`/api/employees/managers`** - List all managers.
+    - **GET** **`/api/reservations/customer/{customerId}`** - Retrieve reservations by customer ID.
+    - **GET** **`/api/reservations/{reservationId}/orders`** - List orders and menu items for a reservation.
+    - **GET** **`/api/reservations/{reservationId}/menu-items`** - List ordered menu items for a reservation.
+    - **GET** **`/api/employees/{employeeId}/average-order-amount`** - Calculate average order amount for an employee.
+
+### 7. Implement Authorization
+
+- Secure the APIs using JWT or another authorization mechanism.
+
+### 8. Validation and Error Handling
+
+- Implement input validation and provide user-friendly error messages.
+
+### 9. API Documentation with Swagger
+
+- Integrate Swagger to auto-generate API documentation. Ensure that the documentation is comprehensive, including
+  parameters, expected responses, and possible error codes.
+
+### 10. Testing
+
+- Manually test all endpoints using tools like Postman or the Swagger UI to ensure they're working as expected.
+
+### 11. Bonus: Postman Test Suite
+
+- Write a comprehensive Postman test suite to automatically test all the API endpoints.
+- Include tests for successful operations and error handling.
+- Share the Postman collection file.
