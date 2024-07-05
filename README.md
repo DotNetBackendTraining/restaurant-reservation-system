@@ -7,6 +7,12 @@
 - Use `docker-compose.migrate.yml` to update the database.
 - Then use `docker-compose.yml` to run the application.
 
+## Development
+
+- Import `postman_colleciton` to postman to test all working endpoints.
+- First use `Auth/Login` to get JWT, then replace `{{current_token}}` variable to apply it to all endpoints.
+- Or use swagger documentations.
+
 ## Before you start
 
 - Use .NET Core 5.0+
