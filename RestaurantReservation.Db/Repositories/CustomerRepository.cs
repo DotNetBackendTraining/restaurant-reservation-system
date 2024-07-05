@@ -18,6 +18,11 @@ public class CustomerRepository : ICustomerRepository
         return await _context.Customers.FindAsync(customerId);
     }
 
+    public async Task<Customer?> GetCustomerByEmailAsync(string email)
+    {
+        return await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
+    }
+
     public IAsyncEnumerable<Customer> GetCustomersWithPartySizeGreaterThan(int partySize)
     {
         return _context.Customers

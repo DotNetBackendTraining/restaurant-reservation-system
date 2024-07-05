@@ -6,5 +6,7 @@ public interface ICustomerRepository
 {
     Task<Customer?> GetCustomer(int customerId);
 
+    Task<Customer?> GetCustomerByEmailAsync(string email);
+
     IAsyncEnumerable<Customer> GetCustomersWithPartySizeGreaterThan(int partySize);
 }
