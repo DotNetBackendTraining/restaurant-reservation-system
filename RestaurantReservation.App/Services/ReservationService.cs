@@ -18,6 +18,12 @@ public class ReservationService : IReservationService
         _reservationRepository = reservationRepository;
     }
 
+    public async Task<ReservationDto?> GetReservationAsync(int reservationId)
+    {
+        var reservation = await _reservationRepository.GetReservationAsync(reservationId);
+        return _mapper.Map<ReservationDto>(reservation);
+    }
+
     public async Task<IEnumerable<ReservationDto>> GetReservationsByCustomerAsync(int customerId)
     {
         var reservations = await _reservationRepository

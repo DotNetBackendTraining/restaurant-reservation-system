@@ -17,6 +17,12 @@ public class OrderService : IOrderService
         _orderRepository = orderRepository;
     }
 
+    public async Task<OrderDto?> GetOrderAsync(int orderId)
+    {
+        var order = await _orderRepository.GetOrderAsync(orderId);
+        return _mapper.Map<OrderDto>(order);
+    }
+
     public async Task<IEnumerable<FullOrderDto>> ListOrdersAndMenuItemsAsync(int reservationId)
     {
         var pairs = await _orderRepository.GetAllOrdersAndMenuItemsAsync(reservationId)

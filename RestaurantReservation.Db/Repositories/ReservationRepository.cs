@@ -13,6 +13,11 @@ public class ReservationRepository : IReservationRepository
         _context = context;
     }
 
+    public async Task<Reservation?> GetReservationAsync(int reservationId)
+    {
+        return await _context.Reservations.FindAsync(reservationId);
+    }
+
     public IAsyncEnumerable<Reservation> GetAllReservationsByCustomerAsync(int customerId)
     {
         return _context.Reservations

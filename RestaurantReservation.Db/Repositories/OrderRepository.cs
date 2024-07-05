@@ -13,6 +13,11 @@ public class OrderRepository : IOrderRepository
         _context = context;
     }
 
+    public async Task<Order?> GetOrderAsync(int orderId)
+    {
+        return await _context.Orders.FindAsync(orderId);
+    }
+
     public async IAsyncEnumerable<(Order, IList<MenuItem>)> GetAllOrdersAndMenuItemsAsync(int reservationId)
     {
         var pairs = _context.Orders
